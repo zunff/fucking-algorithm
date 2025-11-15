@@ -55,7 +55,9 @@ public class LengthOfLIS {
             for (int j = 0; j < i; j++) {
                 if (nums[i] > nums[j]) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
-                } else if (dp[i] == 0){
+                }
+                // 如果某一个数没有递增子序列，则从他开始重新计算，即递增子序列长度为1
+                if (dp[i] == 0){
                     dp[i] = 1;
                 }
             }
