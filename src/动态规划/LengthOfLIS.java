@@ -42,6 +42,13 @@ public class LengthOfLIS {
 
     }
 
+    /**
+     * 定义 0 <= j < i < len
+     * dp[i] 为  在前 i 个数中 最长严格递增子序列的长度
+     *
+     * dp[i] = Max(dp[j] ... dp[0]) || 1
+     *
+     */
     public static int lengthOfLIS(int[] nums) {
         int m = nums.length;
         if (m == 0) {
