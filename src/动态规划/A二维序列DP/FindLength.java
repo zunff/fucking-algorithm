@@ -1,7 +1,7 @@
-package 动态规划;
+package 动态规划.A二维序列DP;
 
 /**
- * 718. 最长重复子数组 中等
+ * 718. 最长重复子数组 中等 2025/12/22
  *
  * 提示
  * 给两个整数数组 nums1 和 nums2 ，返回 两个数组中 公共的 、长度最长的子数组的长度 。
@@ -25,8 +25,45 @@ public class FindLength {
     public static void main(String[] args) {
         int[] nums1 = {0,0,0,0,1};
         int[] nums2 = {1,0,0,0,0};
-        System.out.println(new FindLength().findLength(nums1, nums2));
+        System.out.println(new FindLength().findLengthSecond(nums1, nums2));
     }
+
+
+    /**
+     * 2025/12/29 第三次复写
+     */
+    public int findLengthThird(int[] nums1, int[] nums2) {
+
+        return 0;
+    }
+
+
+
+
+
+
+
+
+    public int findLengthSecond(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int[][] dp = new int[m + 1][n + 1];
+        int res = 0;
+        for (int i = 1; i <= m; i++) {
+            int a = nums1[i - 1];
+            for (int j = 1; j <= n; j++) {
+                int b = nums2[j - 1];
+                if (a == b) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                    res = Math.max(dp[i][j], res);
+                } else {
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        return res;
+    }
+
 
     /**
      * 与 1143 很类似，但状态定义不一样，连续的子数组用这种定义
