@@ -21,11 +21,11 @@ package 动态规划.A二维序列DP;
  * 1 <= nums1.length, nums2.length <= 1000
  * 0 <= nums1[i], nums2[i] <= 100
  */
-public class FindLength {
+public class FindLength718 {
     public static void main(String[] args) {
         int[] nums1 = {0,0,0,0,1};
         int[] nums2 = {1,0,0,0,0};
-        System.out.println(new FindLength().findLengthSecond(nums1, nums2));
+        System.out.println(new FindLength718().findLengthSecond(nums1, nums2));
     }
 
 

@@ -35,11 +35,11 @@ package 动态规划.A二维序列DP;
  * 1 <= nums1[i], nums2[j] <= 2000
  *
  */
-public class MaxUncrossedLines {
+public class MaxUncrossedLines1035 {
     public static void main(String[] args) {
         int[] nums1 = {1,4,2};
         int[] nums2 = {1,2,4};
-        System.out.println(new MaxUncrossedLines().maxUncrossedLines(nums1, nums2));
+        System.out.println(new MaxUncrossedLines1035().maxUncrossedLines(nums1, nums2));
     }
 
     /**
