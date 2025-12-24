@@ -2,6 +2,7 @@ package 动态规划.A二维序列DP;
 
 /**
  * 1035. 不相交的线 中等 2025/12/23
+ * second redo 10 min
  *
  * 提示
  * 在两条独立的水平线上按给定的顺序写下 nums1 和 nums2 中的整数。
@@ -39,8 +40,66 @@ public class MaxUncrossedLines1035 {
     public static void main(String[] args) {
         int[] nums1 = {1,4,2};
         int[] nums2 = {1,2,4};
-        System.out.println(new MaxUncrossedLines1035().maxUncrossedLines(nums1, nums2));
+        System.out.println(new MaxUncrossedLines1035().maxUncrossedLinesSecond(nums1, nums2));
     }
+
+
+
+
+    public int maxUncrossedLinesThird(int[] nums1, int[] nums2) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 想要不交叉的连线并且数字相同，本质上就是最长子序列问题
+     *
+     * dp[i][j] 表示  nums1前i个元素 和 nums2的前j个元素
+     * {
+     *   nums[i] == nums[j]    dp[i][j] = dp[i - 1][j - 1] + 1
+     *   nums[i] != nums[j]    dp[i][j] = max(dp[i - 1][j], dp[i][j -1])
+     * }
+     */
+    public int maxUncrossedLinesSecond(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int m = nums2.length;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (nums1[i - 1] == nums2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[n][m];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 这里本质上还是 1143. 最长公共子序列
