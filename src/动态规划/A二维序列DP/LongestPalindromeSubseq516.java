@@ -24,13 +24,90 @@ package 动态规划.A二维序列DP;
 public class LongestPalindromeSubseq516 {
 
     public static void main(String[] args) {
-        String s = "bb";
-        System.out.println(new LongestPalindromeSubseq516().longestPalindromeSubseq(s));
+        String s = "bbbab";
+        System.out.println(new LongestPalindromeSubseq516().longestPalindromeSubseqSecond(s));
     }
 
-    public int longestPalindromeSubseqSecond(String s) {
+
+
+
+    public int longestPalindromeSubseqThird(String s) {
         return 0;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * dp[i][j] 为 s[i...j]的最长回文子序列长度   2025/12/25 20min
+     * {
+     *     s[i] == s[j]   dp[i][j] = dp[i+1][j-1] + 2
+     *     s[i] != s[j]   dp[i][j] = max(dp[i][j-1], dp[i + 1][j])
+     * }
+     */
+    public int longestPalindromeSubseqSecond(String s) {
+        int n = s.length();
+        int[][] dp = new int[n + 2][n + 2];
+        for (int i = n; i >= 1; i--) {
+            dp[i][i] = 1;
+            for (int j = i + 1; j <= n; j++) {
+                if (s.charAt(i - 1) == s.charAt(j - 1)) {
+                    dp[i][j] = dp[i + 1][j - 1] + 2;
+                } else {
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j]);
+                }
+            }
+        }
+        return dp[1][n];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
