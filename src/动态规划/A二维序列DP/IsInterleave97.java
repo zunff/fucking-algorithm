@@ -33,13 +33,48 @@ package 动态规划.A二维序列DP;
  */
 public class IsInterleave97 {
     public static void main(String[] args) {
-        String s1 = "db";
-        String s2 = "b";
-        String s3 = "cbb";
-        System.out.println(new IsInterleave97().isInterleave(s1, s2, s3));
+        String s1 = "aabcc";
+        String s2 = "dbbca";
+        String s3 = "aadbbcbcac";
+        System.out.println(new IsInterleave97().isInterleaveSecond(s1, s2, s3));
     }
+
+    /**
+     * 2025/12/26 第二次复写
+     * dp[i][j] 表示 s1的前i个字符 和 s2的前j个字符，能否构成s3的前i+j个字符
+     * {
+     *     s1[i] == s3[i+j]                          dp[i][j] = dp[i-1][j]
+     *     s2[j] == s3[i+j]                          dp[i][j] = dp[i][j-1]
+     *     s1[i] != s3[i+j]  && s2[j] != s3[i+j]     dp[i][j] = false
+     * }
+     *
+     */
     public boolean isInterleaveSecond(String s1, String s2, String s3) {
-        return false;
+        int n = s1.length();
+        int m = s2.length();
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        if (n + m != s3.length()) {
+            return false;
+        }
+        dp[0][0] = true;
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = dp[i - 1][0] && s1.charAt(i - 1) == s3.charAt(i - 1);
+        }
+        for (int j = 1; j < m; j++) {
+            dp[0][j] = dp[0][j - 1] && s1.charAt(j - 1) == s3.charAt(j - 1);
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                char a = s1.charAt(i - 1);
+                char b = s2.charAt(j - 1);
+                char c = s3.charAt(i + j - 1);
+                if (a == c || b == c) {
+                    dp[i][j] = a == c && dp[i - 1][j] || b == c && dp[i][j - 1];
+                }
+            }
+        }
+        return dp[n][m];
     }
 
 
