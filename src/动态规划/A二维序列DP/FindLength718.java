@@ -23,18 +23,36 @@ package 动态规划.A二维序列DP;
  */
 public class FindLength718 {
     public static void main(String[] args) {
-        int[] nums1 = {0,0,0,0,1};
-        int[] nums2 = {1,0,0,0,0};
-        System.out.println(new FindLength718().findLengthSecond(nums1, nums2));
+        int[] nums1 = {1,2,3,2,1};
+        int[] nums2 = {3,2,1,4,7};
+        System.out.println(new FindLength718().findLengthThird(nums1, nums2));
     }
 
 
     /**
      * 2025/12/29 第三次复写
+     * dp[i][j] 表示 以nums1前i个数且以i结尾 和 nums2前j个数且以j结尾 的两个子数组的最长子数组长度
+     * 边界：i = 0 或 j = 0 无意义，都为 0
+     * {
+     *    nums1[i] == nums2[j]   dp[i][j] = dp[i-1][j-1] + 1
+     *    nums1[i] != nums2[j]   dp[i][j] = 0
+     * }
+     * 答案 max(dp[i][j])
      */
     public int findLengthThird(int[] nums1, int[] nums2) {
-
-        return 0;
+        int n = nums1.length;
+        int m = nums2.length;
+        int[][] dp = new int[n + 1][m + 1];
+        int res = 0;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (nums1[i - 1] == nums2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                }
+                res = Math.max(dp[i][j], res);
+            }
+        }
+        return res;
     }
 
 
