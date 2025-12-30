@@ -23,11 +23,89 @@ package 动态规划.A二维序列DP;
 public class CanPartition416 {
     public static void main(String[] args) {
         int[] nums = {1,5,11,5};
-        System.out.println(new CanPartition416().canPartition(nums));
+        System.out.println(new CanPartition416().canPartitionSecond(nums));
     }
 
-    public boolean canPartitionSecond(int[] nums) {
+
+
+    public boolean canPartitionThird(int[] nums) {
         return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 问题等价于 选出 几个数，使得他们之和等于 sum / 2
+     * 变成了01背包，容量为 sum / 2
+     * dp[i][j] 表示前i个数，能否凑够容量 j
+     * 边界：dp[0][0] = true
+     *      dp[i][0] = true    可以凑够0，一个都不选就行
+     *      dp[0][j] = false
+     * 条件：sum / 2 能整除才有解
+     * {
+     *     j >= nums[i]    dp[i][j] = dp[i - 1][j - nums[i]] || dp[i - 1][j]     选或不选
+     *     j < nums[i]     dp[i][j] = dp[i - 1][j]                              只能不选
+     * }
+     */
+    public boolean canPartitionSecond(int[] nums) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        int n = nums.length;
+        int v = sum / 2;
+        boolean[][] dp = new boolean[n + 1][v + 1];
+        dp[0][0] = true;
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = true;
+        }
+        for (int i = 1; i <= n; i++) {
+            int num = nums[i - 1];
+            for (int j = 1; j <= v; j++) {
+                if (j >= num) {
+                    dp[i][j] = dp[i - 1][j - num] || dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return dp[n][v];
     }
 
 
