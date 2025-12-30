@@ -40,15 +40,47 @@ public class MaxUncrossedLines1035 {
     public static void main(String[] args) {
         int[] nums1 = {1,4,2};
         int[] nums2 = {1,2,4};
-        System.out.println(new MaxUncrossedLines1035().maxUncrossedLinesSecond(nums1, nums2));
+        System.out.println(new MaxUncrossedLines1035().maxUncrossedLinesThird(nums1, nums2));
     }
 
 
-
-
+    /**
+     * 等价于最长子序列问题
+     * dp[i][j] 表示nums1中前i个元素 和 nums2中前j个元素 的最长子序列长度
+     * {
+     *     nums1[i] == nums2[j]      dp[i][j] = dp[i - 1][j - 1] + 1
+     *     nums1[i] == nums2[j]      dp[i][j] = max(dp[i][j-1], dp[i-1][j])
+     * }
+     */
     public int maxUncrossedLinesThird(int[] nums1, int[] nums2) {
-        return 0;
+        int n = nums1.length;
+        int m = nums2.length;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (nums1[i - 1] == nums2[j -1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+                }
+            }
+        }
+        return dp[n][m];
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
