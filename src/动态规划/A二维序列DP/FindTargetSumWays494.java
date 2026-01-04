@@ -35,10 +35,84 @@ public class FindTargetSumWays494 {
 
     public static void main(String[] args) {
         int[] nums = {1, 1, 1, 1, 1};
-        System.out.println(new FindTargetSumWays494().findTargetSumWays(nums, 3));
+        System.out.println(new FindTargetSumWays494().findTargetSumWaysSecond(nums, 3));
     }
-    public int findTargetSumWaysSecond(int[] nums, int target) {
+
+    public int findTargetSumWaysThird(int[] nums, int target) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 子集和等于固定 target 的方案数
+     *
+     * pos + neg = sum
+     * target  = pos - neg
+     * 得到 pos = (target + sum) / 2
+     * 转化为 01背包，选几个数，使得和为(target + sum) / 2，有几种方案，最大容量为(target + sum) / 2
+     * dp[i][j] 表示在前i个数里，有几种方案能组成j
+     * 初始化：dp[0][0] = 1  表示0个数有一种方案能组成j
+     *        i = 0 时 dp[i][0] = 1 表示前 i 个数有一种方案能组成 0，一个都不选，但是如果nums[i]本身等于0，还得 + 1
+     *        j = 0 时 dp[0][j] = 0 表示0个数无法组成j
+     * {
+     *     j >= nums[i]  dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]]
+     *     j < nums[i]   dp[i][j] = dp[i - 1][j]
+     * }
+     *
+     */
+    public int findTargetSumWaysSecond(int[] nums, int target) {
+        int n = nums.length;
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (Math.abs(target) > sum || (target + sum) % 2 != 0) {
+            return 0;
+        }
+        int v = (target + sum) / 2;
+        int[][] dp = new int[n + 1][v + 1];
+        dp[0][0] = 1;
+        // 由于 nums[i - 1]有可能等于0，在初始化dp[i][0]时，如果nums[i - 1]=0，需要额外 + 1，所以直接放进循环里
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= v; j++) {
+                if (j >= nums[i - 1]) {
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return dp[n][v];
     }
 
 
