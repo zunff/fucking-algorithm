@@ -1,5 +1,7 @@
 package 动态规划.B背包;
 
+import java.util.Arrays;
+
 /**
  * 1049. 最后一块石头的重量 II 中等   Day10
  *
@@ -35,13 +37,75 @@ public class LastStoneWeightII1049 {
 
     public static void main(String[] args) {
         int[] stones = {31,26,33,21,40};
-        System.out.println(new LastStoneWeightII1049().lastStoneWeightII(stones));
+        System.out.println(new LastStoneWeightII1049().lastStoneWeightIISecond(stones));
+    }
+
+
+    public int lastStoneWeightIIThird(int[] stones) {
+        return 0;
     }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    /**
+     * 把石头分成两堆 pos、neg，分别为正数和 和 负数和
+     * ans = pos - neg
+     * sum = pos + neg => pos - neg = sum - 2neg
+     * 所以 ans = sum - 2neg
+     * 要使得ans最小就是让 2neg尽量趋近于 sum，也就是 neg 趋近与 sum/2
+     * 因此问题转化为 选几个数相加形成 neg，最大容量是 sum/2，价值就是数字本身，转化为了 01背包
+     *
+     * dp[i][j] 表示前i个数字，在容量j下最多能装下多少价值的数字
+     * 边界：dp[0][0] = 0
+     *      i = 0：dp[i][0] = 0
+     *      j = 0：dp[0][j] = 0
+     * {
+     *     j >= stones[i]   dp[i][j] = max(dp[i - 1][j], d[i - 1][j - stones[i]] + stones[i])
+     *     j <  stones[i]   dp[i][j] = dp[i - 1][j]
+     * }
+     * ans = sum - 2*dp[n][v]
+     */
     public int lastStoneWeightIISecond(int[] stones) {
-        return 0;
+        int sum = Arrays.stream(stones).sum();
+        int n = stones.length;
+        int v = sum / 2;
+        int[] dp = new int[v + 1];
+
+        for (int i = 1; i <= n; i++) {
+            int stone = stones[i - 1];
+            for (int j = v; j >= 1; j--) {
+                if (j >= stone) {
+                    dp[j] = Math.max(dp[j], dp[j - stone] + stone);
+                }
+            }
+        }
+        return sum - 2 * dp[v];
     }
 
 
