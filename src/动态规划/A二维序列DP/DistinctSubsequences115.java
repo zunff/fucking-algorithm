@@ -34,12 +34,37 @@ public class DistinctSubsequences115 {
     public static void main(String[] args) {
         String s = "rabbbit";
         String t = "rabbit";
-        System.out.println(new DistinctSubsequences115().numDistinctSecond(s, t));
+        System.out.println(new DistinctSubsequences115().numDistinctThird(s, t));
     }
 
-
+    /**
+     * dp[i][j] 表示 s[0,i]的子序列中 t[0,j]出现的个数
+     * 边界：dp[0][0] = 1
+     *      dp[i][0] = 1
+     *      dp[0][j] = 0
+     * {
+     *     s[i] == t[j]     dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1]       不选与选s[i]
+     *     s[i] != t[j]     dp[i][j] = dp[i - 1][j]
+     * }
+     */
     public int numDistinctThird(String s, String t) {
-        return 0;
+        int n = s.length();
+        int m = t.length();
+        int[][] dp = new int[n + 1][m + 1];
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dp[i][j] += dp[i - 1][j - 1];
+                }
+            }
+        }
+        return dp[n][m];
     }
 
 
