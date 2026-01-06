@@ -31,11 +31,82 @@ public class FindMaxForm474 {
     public static void main(String[] args) {
 //        String[] strs = {"10", "0001", "111001", "1", "0"};
         String[] strs = {"10", "0", "1"};
-        System.out.println(new FindMaxForm474().findMaxForm(strs, 1, 1));
+        System.out.println(new FindMaxForm474().findMaxFormSecond(strs, 1, 1));
     }
 
-    public int findMaxFormSecond(String[] strs, int m, int n) {
+    public int findMaxFormThird(String[] strs, int m, int n) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * dp[i][j][k] 表示 前 i个字符，最多有 j 个 0 和 k 个 1 的 最大子集长度
+     * 边界 dp[0][0][0] = 0
+     *      dp[0][j][k] = 0
+     *      dp[i][0][k] = 状态转移方程
+     *      dp[i][j][0] = 状态转移方程
+     * {
+     *     cnt0[i] <= j && cnt1[i] <= k     dp[i][j][k] = max(dp[i - 1][j][k], dp[i - 1][j - cnt0[i]][k - cnt1[i]] + 1)
+     *     cnt0[i] > j || cnt1[i] > k       dp[i][j][k] = dp[i - 1][j][k]
+     * }
+     *
+     */
+    public int findMaxFormSecond(String[] strs, int m, int n) {
+        // 直接写优化掉i的数组
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 1; i <= strs.length; i++) {
+            int cnt0 = (int)strs[i - 1].chars().filter(ch -> ch == '0').count();
+            int cnt1 = strs[i - 1].length() - cnt0;
+            for (int j = m; j >= 0; j--) {
+                for (int k = n; k >= 0; k--) {
+                    if (j >= cnt0 && k >= cnt1) {
+                        dp[j][k] = Math.max(dp[j][k], dp[j - cnt0][k - cnt1] + 1);
+                    }
+                }
+            }
+        }
+        return dp[m][n];
     }
 
 

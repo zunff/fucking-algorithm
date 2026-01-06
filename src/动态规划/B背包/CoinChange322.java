@@ -3,7 +3,7 @@ package 动态规划.B背包;
 import java.util.Arrays;
 
 /**
- * 322. 零钱兑换  中等
+ * 322. 零钱兑换  中等  Day12
  *
  * 给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
  * 计算并返回可以凑成总金额所需的 最少的硬币个数 。如果没有任何一种硬币组合能组成总金额，返回 -1 。
@@ -34,6 +34,43 @@ public class CoinChange322 {
         int[] coins = {1, 2, 5};
         System.out.println(new CoinChange322().coinChange(coins, 11));
     }
+
+    public int coinChangeSecond(int[] coins, int amount) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * dp[i][j] 表示前i个硬币，在容量j下的 最少硬币数是多少
