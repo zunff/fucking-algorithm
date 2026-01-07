@@ -32,11 +32,55 @@ import java.util.Arrays;
 public class CoinChange322 {
     public static void main(String[] args) {
         int[] coins = {1, 2, 5};
-        System.out.println(new CoinChange322().coinChange(coins, 11));
+        System.out.println(new CoinChange322().coinChangeSecond(coins, 11));
     }
 
+    /**
+     * dp[i][j] 表示 前 i个硬币 组成总金额j 所需要的最少硬币数
+     * 初始化：所有dp[i][j] 都 初始化为 INF=Integer.MAX / 2
+     *        dp[0][0] = 0 表示 0 容量 需要 0 个硬币就能组成
+     *        dp[i][0] = 0 同上
+     *        dp[0][j] = 无解
+     * {
+     *     如果子问题无解，那么dp[i][j]直接无解，下面状态转移方程是在子问题有解的前提下
+     *     j >= coins[i]    dp[i][j] = min(dp[i - 1][j], dp[i][j - coins[i]] + 1)
+     *     j < coins[i]     dp[i][j] = dp[i - 1][j]
+     * }
+     */
     public int coinChangeSecond(int[] coins, int amount) {
-        return 0;
+        int INF = Integer.MAX_VALUE / 2;
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, INF);
+        dp[0] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = coins[i - 1]; j <= amount; j++) {
+                dp[j] = Math.min(dp[j], dp[j - coins[i - 1]] + 1);
+            }
+        }
+
+        return dp[amount] == INF ? -1 : dp[amount];
+
+
+//        int INF = Integer.MAX_VALUE / 2;
+//        int n = coins.length;
+//        int[][] dp = new int[n + 1][amount + 1];
+//        for (int i = 0; i <= n; i++) {
+//            Arrays.fill(dp[i], INF);
+//            dp[i][0] = 0;
+//        }
+//
+//        for (int i = 1; i <= n; i++) {
+//            for (int j = 1; j <= amount; j++) {
+//                dp[i][j] = dp[i - 1][j];
+//                if (j >= coins[i - 1]) {
+//                    dp[i][j] = Math.min(dp[i][j], dp[i][j - coins[i - 1]] + 1);
+//                }
+//            }
+//        }
+//
+//        return dp[n][amount] == INF ? -1 : dp[n][amount];
     }
 
 
