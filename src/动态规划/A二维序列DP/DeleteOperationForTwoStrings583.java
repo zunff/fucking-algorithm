@@ -1,7 +1,7 @@
 package 动态规划.A二维序列DP;
 
 /**
- * 583. 两个字符串的删除操作 中等 2022/12/27
+ * 583. 两个字符串的删除操作 中等 2025/12/27
  *
  * 给定两个单词 word1 和 word2 ，返回使得 word1 和  word2 相同所需的最小步数。
  * 每步 可以删除任意一个字符串中的一个字符。
@@ -24,12 +24,40 @@ public class DeleteOperationForTwoStrings583 {
     public static void main(String[] args) {
         String word1 = "sea";
         String word2 = "eat";
-        System.out.println(new DeleteOperationForTwoStrings583().minDistanceSecond(word1, word2));
+        System.out.println(new DeleteOperationForTwoStrings583().minDistanceThird(word1, word2));
     }
 
-
+    /**
+     * dp[i][j] 表示使得 word1前 i个字符 和 word2前 j个字符  相同所需最小步数
+     * 边界：dp[0][0] = 0
+     *      dp[i][0] = i;
+     *      dp[0][j] = j;
+     * {
+     *     word1[i] == word2[j]    dp[i][j] = dp[i - 1][j -1]                           谁也不用删
+     *     word1[i] != word2[j]    dp[i][j] = min(dp[i][j - 1], dp[i - 1][j]) + 1       删 word1[i] 或 删 word2[j]
+     * }
+     */
     public int minDistanceThird(String word1, String word2) {
-        return 0;
+        int n = word1.length();
+        int m = word2.length();
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 1; j <= m; j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + 1;
+                }
+            }
+        }
+        return dp[n][m];
     }
 
 
@@ -77,7 +105,7 @@ public class DeleteOperationForTwoStrings583 {
         int n = word1.length();
         int m = word2.length();
         int[][] dp = new int[n + 1][m + 1];
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             dp[i][0] = i;
         }
         for (int j = 1; j <= m; j++) {

@@ -35,6 +35,56 @@ public class CoinChange322 {
         System.out.println(new CoinChange322().coinChangeSecond(coins, 11));
     }
 
+    public int coinChangeThird(int[] coins, int amount) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * dp[i][j] 表示 前 i个硬币 组成总金额j 所需要的最少硬币数
      * 初始化：所有dp[i][j] 都 初始化为 INF=Integer.MAX / 2
