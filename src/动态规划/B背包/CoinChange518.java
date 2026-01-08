@@ -36,12 +36,90 @@ public class CoinChange518 {
 
     public static void main(String[] args) {
         int[] coins = {1, 2, 5};
-        System.out.println(new CoinChange518().change(5, coins));
+        System.out.println(new CoinChange518().changeSecond(5, coins));
     }
 
 
-    public int changeSecond(int amount, int[] coins) {
+    public int changeThird(int amount, int[] coins) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 1 ... base
+     *
+     * dp[i][j] 表示前 i个硬币 能组成金额 j的组合数
+     * 边界：dp[0][0] = 1
+     *      dp[i][0] = 1
+     *      dp[0][j] = 0
+     * {
+     *     j >= coins[i - 1]    dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]]
+     *     j < coins[i - 1]     dp[i][j] = dp[i - 1][j]
+     * }
+     */
+    public int changeSecond(int amount, int[] coins) {
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = coins[i - 1]; j <= amount; j++) {
+                dp[j] += dp[j - coins[i - 1]];
+            }
+        }
+        return dp[amount];
     }
 
 

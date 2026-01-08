@@ -33,6 +33,49 @@ public class MinPathSum64 {
         System.out.println(new MinPathSum64().minPathSum(grid));
     }
 
+
+    public int minPathSumSecond(int[][] grid) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 0 ... base - 1
      *
