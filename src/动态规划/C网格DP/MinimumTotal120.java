@@ -91,6 +91,8 @@ public class MinimumTotal120 {
 
 
     /**
+     * 0 ... base-1
+     *
      * dp[j] 表示从顶部 到 triangle[i][j] 的最小路径和
      *
      * {

@@ -30,12 +30,103 @@ package 动态规划.C网格DP;
 public class MinPathSum64 {
     public static void main(String[] args) {
         int[][] grid = {{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
-        System.out.println(new MinPathSum64().minPathSum(grid));
+        System.out.println(new MinPathSum64().minPathSumSecond(grid));
+    }
+
+    public int minPathSumThird(int[][] grid) {
+        return 0;
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 0 ... base-1
+     * dp[i][j] 表示从左上角到 grid[i][j] 的最小路径和
+     * 初始化: dp[0][0] = grid[0][0]
+     *        dp[i][0] = dp[i - 1][0] + grid[0][0]      只能从上面来
+     *        dp[0][j] = dp[0][j - 1] + grid[0][0]      只能从左边来
+     * {
+     *     dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+     * }
+     */
     public int minPathSumSecond(int[][] grid) {
-        return 0;
+
+        int n = grid.length;
+        int m = grid[0].length;
+        int[] dp = new int[m];
+        dp[0] = grid[0][0];
+        for (int j = 1; j < m; j++) {
+            dp[j] = dp[j - 1] + grid[0][j];
+        }
+
+        for (int i = 1; i < n; i++) {
+            dp[0] = dp[0] + grid[i][0];
+            for (int j = 1; j < m; j++) {
+                dp[j] = Math.min(dp[j], dp[j - 1]) + grid[i][j];
+            }
+        }
+        return dp[m - 1];
+
+
+//        int n = grid.length;
+//        int m = grid[0].length;
+//        int[][] dp = new int[n][m];
+//        dp[0][0] = grid[0][0];
+//        for (int i = 1; i < n; i++) {
+//            dp[i][0] = dp[i - 1][0] + grid[i][0];
+//        }
+//        for (int j = 1; j < m; j++) {
+//            dp[0][j] = dp[0][j - 1] + grid[0][j];
+//        }
+//
+//        for (int i = 1; i < n; i++) {
+//            for (int j = 1; j < m; j++) {
+//                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i][j];
+//            }
+//        }
+//        return dp[n - 1][m - 1];
     }
 
 
