@@ -1,5 +1,7 @@
 package 动态规划.B背包;
 
+import java.util.Arrays;
+
 /**
  494. 目标和 中等 2025/12/30
 
@@ -35,11 +37,50 @@ public class FindTargetSumWays494 {
 
     public static void main(String[] args) {
         int[] nums = {1, 1, 1, 1, 1};
-        System.out.println(new FindTargetSumWays494().findTargetSumWaysSecond(nums, 3));
+        System.out.println(new FindTargetSumWays494().findTargetSumWaysThird(nums, 3));
     }
 
+    /**
+     * 0...base
+     *
+     * 分为两组 pos、neg
+     * pos + neg = sum
+     * pos - neg = target
+     *
+     * 2pos = sum + target     =>      pos = (sum + target) / 2
+     *
+     * 问题转化为 找几个数 组成pos，有多少种组合能组成 (sum + target) / 2，变成了01背包问题
+     *
+     * dp[i][j] 表示 前 i个数，有几种组合能组成 j
+     * 边界：(sum + target) % 2 !== 0          0
+     *      abs(target) > sum                 0
+     * 初始化：dp[0][0] = 1
+     *        dp[i][0] = dp[i - 1][0] + nums[i] == 0 ? 1 : 0   放到转移方程里循环即可
+     *        dp[0][j] = 0; j > 0
+     *
+     * {
+     *     j >= nums[i]     dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]]
+     *     j < nums[i]      dp[i][j] = dp[i - 1][j]
+     * }
+     */
     public int findTargetSumWaysThird(int[] nums, int target) {
-        return 0;
+        int sum = Arrays.stream(nums).sum();
+        if (Math.abs(target) > sum || (sum + target) % 2 != 0) {
+            return 0;
+        }
+        int n = nums.length;
+        int v = (sum + target) / 2;
+        int[] dp = new int[v + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            int num = nums[i - 1];
+            for (int j = v; j >= 0; j--) {
+                if (j >= num) {
+                    dp[j] += dp[j - num];
+                }
+            }
+        }
+        return dp[v];
     }
 
 
