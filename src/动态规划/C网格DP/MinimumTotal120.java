@@ -34,13 +34,98 @@ import java.util.List;
 public class MinimumTotal120 {
 
     public static void main(String[] args) {
-        List<List<Integer>> triangle = Arrays.asList(Arrays.asList(-10));
-        System.out.println(new MinimumTotal120().minimumTotal(triangle));
+        List<List<Integer>> triangle = Arrays.asList(
+                List.of(2),
+                List.of(3, 4),
+                List.of(6, 5, 7),
+                List.of(4, 1, 8, 3)
+        );
+        System.out.println(new MinimumTotal120().minimumTotalSecond(triangle));
+    }
+
+    public int minimumTotalThird(List<List<Integer>> triangle) {
+        return 0;
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * dp[i][j] 表示 以 triangle[i][j]为起点的最小路径和
+     * 初始化：初始化最下面那行 dp[i][j] = triangle[i][j]
+     * {
+     *     dp[j] = min(dp[j + 1], dp[j]) + triangle[i][j]
+     * }
+     */
     public int minimumTotalSecond(List<List<Integer>> triangle) {
-        return 0;
+        int n = triangle.size();
+        int m = triangle.get(n - 1).size();
+        int[] dp = new int[m];
+
+        for (int j = 0; j < m; j++) {
+            dp[j] = triangle.get(n - 1).get(j);
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j < triangle.get(i).size(); j++) {
+                if (j + 1 < triangle.get(i + 1).size()) {
+                    dp[j] = Math.min(dp[j], dp[j + 1]) + triangle.get(i).get(j);
+                } else {
+                    dp[j] = dp[j] + triangle.get(i).get(j);
+                }
+            }
+        }
+        return dp[0];
     }
 
 
