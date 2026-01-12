@@ -37,12 +37,57 @@ public class LastStoneWeightII1049 {
 
     public static void main(String[] args) {
         int[] stones = {31,26,33,21,40};
-        System.out.println(new LastStoneWeightII1049().lastStoneWeightIISecond(stones));
+        System.out.println(new LastStoneWeightII1049().lastStoneWeightIIThird(stones));
     }
 
 
+    /**
+     * sum = pos + neg
+     * ans = pos - neg  => ans = sum - 2neg
+     * 要使 ans 趋近最小值，就要 neg 趋近于 sum/2
+     * 转化为 01 背包，选几个数相加得到 neg，使其价值趋近于 sum/2
+     *
+     * {
+     *     j >= stones[i]   dp[i][j] = max(dp[i - 1][j] , dp[i - 1][j - stones[i]] + stones[i])
+     *     j < stones[i]    dp[i][j] = dp[i - 1][j]
+     * }
+     *
+     * ans = sum - 2*dp[n][v]
+     */
     public int lastStoneWeightIIThird(int[] stones) {
-        return 0;
+        int sum = Arrays.stream(stones).sum();
+        int n = stones.length;
+        // 除不尽就向下取整
+        int v = sum / 2;
+
+        int[] dp = new int[v + 1];
+        for (int i = 1; i <= n; i++) {
+            int stone = stones[i - 1];
+            for (int j = v; j >= stone; j--) {
+                dp[j] = Math.max(dp[j], dp[j - stone] + stone);
+            }
+        }
+        return sum - 2 * dp[v];
+
+
+
+//        int sum = Arrays.stream(stones).sum();
+//
+//        int n = stones.length;
+//        // 除不尽就向下取整
+//        int v = sum / 2;
+//
+//        int[][] dp = new int[n + 1][v + 1];
+//        for (int i = 1; i <= n; i++) {
+//            int stone = stones[i - 1];
+//            for (int j = 1; j <= v; j++) {
+//                dp[i][j] = dp[i - 1][j];
+//                if (j >= stone) {
+//                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - stone] + stone);
+//                }
+//            }
+//        }
+//        return sum - 2 * dp[n][v];
     }
 
 
