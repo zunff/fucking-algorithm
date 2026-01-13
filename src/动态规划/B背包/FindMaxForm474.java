@@ -31,11 +31,32 @@ public class FindMaxForm474 {
     public static void main(String[] args) {
 //        String[] strs = {"10", "0001", "111001", "1", "0"};
         String[] strs = {"10", "0", "1"};
-        System.out.println(new FindMaxForm474().findMaxFormSecond(strs, 1, 1));
+        System.out.println(new FindMaxForm474().findMaxFormThird(strs, 1, 1));
     }
 
+    /**
+     * dp[i][j][k] 表示前 i个字符串中 在最多有 j个 0和 k个 1 的最大子集长度。01 背包问题
+     * 初始化：j = 0：dp[i][0][k] = 状态转移方程
+     *        k = 0：dp[i][j][0] = 状态转移方程
+     * {
+     *     j >= cnt0[i] && k >= cnt1[i]     dp[i]][j][k] = max(dp[i - 1][j][k], dp[i - 1][j - cnt0[i]][k - cnt1[i]] + 1)
+     *     j <  cnt0[i] || k <  cnt1[i]     dp[i]][j][k] = dp[i - 1][j][k]
+     * }
+     */
     public int findMaxFormThird(String[] strs, int m, int n) {
-        return 0;
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 0; i < strs.length; i++) {
+            String str = strs[i];
+            int cnt1 = (int) str.chars().filter(c -> c == '1').count();
+            int cnt0 = str.length() - cnt1;
+            for (int j = m; j >= cnt0; j--) {
+                for (int k = n; k >= cnt1; k--) {
+                    dp[j][k] = Math.max(dp[j][k], dp[j - cnt0][k - cnt1] + 1);
+                }
+            }
+        }
+        return dp[m][n];
     }
 
 

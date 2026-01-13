@@ -39,6 +39,12 @@ public class MaximalSquare221 {
         System.out.println(new MaximalSquare221().maximalSquareSecond(matrix));
     }
 
+    public int maximalSquareThird(char[][] matrix) {
+        return 0;
+    }
+
+
+
     /**
      * 0...base-1
      *
