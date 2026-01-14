@@ -27,16 +27,64 @@ import java.util.Arrays;
  * 提示：
  * 1 <= coins.length <= 12
  * 1 <= coins[i] <= 231 - 1
- * 0 <= amount <= 104
+ * 0 <= amount <= 10000
  */
 public class CoinChange322 {
     public static void main(String[] args) {
-        int[] coins = {1, 2, 5};
-        System.out.println(new CoinChange322().coinChangeSecond(coins, 11));
+        int[] coins = {1};
+        System.out.println(new CoinChange322().coinChangeThird(coins, 10000));
     }
 
+    /**
+     * 1...base
+     *
+     * dp[i][j] 表示 前 i个coins，凑成金额 j所需要的最少硬币数
+     * 初始化：dp[0][0] = 0     一个都不选 需要 0个
+     *        dp[i][0] = 0   一个都不选 需要0个
+     *        dp[0][j] = INF   0 个硬币凑不出正整数 j
+     * {
+     *     j >= coins[i]    dp[i][j] = min(dp[i - 1][j], dp[i][j - coins[i]] + 1)
+     *     j < coins[i]     dp[i][j] = dp[i - 1][j]
+     * }
+     */
     public int coinChangeThird(int[] coins, int amount) {
-        return 0;
+        int INF = 10000 + 1;
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        for (int j = 1; j <= amount; j++) {
+            dp[j] = INF;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            int coin = coins[i - 1];
+            for (int j = coin; j <= amount; j++) {
+                dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+
+            }
+        }
+        return dp[amount] == INF ? -1 : dp[amount];
+
+
+
+
+//        int INF = 10000 + 1;
+//        int n = coins.length;
+//        int[][] dp = new int[n + 1][amount + 1];
+//        for (int j = 1; j <= amount; j++) {
+//            dp[0][j] = INF;
+//        }
+//
+//        for (int i = 1; i <= n; i++) {
+//            int coin = coins[i - 1];
+//            for (int j = 1; j <= amount; j++) {
+//                if (j >= coin) {
+//                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - coin] + 1);
+//                } else {
+//                    dp[i][j] = dp[i - 1][j];
+//                }
+//            }
+//        }
+//        return dp[n][amount] == INF ? -1 : dp[n][amount];
     }
 
 
