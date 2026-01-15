@@ -32,11 +32,63 @@ package 动态规划.C网格DP;
 public class UniquePathsWithObstacles63 {
 
     public static void main(String[] args) {
-        System.out.println(new UniquePathsWithObstacles63().uniquePathsWithObstacles(new int[][]{{0,0,0},{0,1,0},{0,0,0}}));
+        System.out.println(new UniquePathsWithObstacles63().uniquePathsWithObstaclesSecond(new int[][]{{0,0,0},{0,1,0},{0,0,0}}));
     }
 
+    /**
+     * 0...base-1
+     *
+     * dp[i][j] 表示从左上角 到 grid[i][j] 不同的路径数量
+     * 初始化：dp[0][0] = grid[0][0] == 1 ? 0 : 1
+     *        dp[i][0] = grid[i][0] == 1 ? 0 : dp[i - 1][0]
+     *        dp[0][j] = grid[0][j] == 1 ? 0 : dp[0][j - 1]
+     * {
+     *     grid[i][j] == 0      dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+     *     grid[i][j] == 1      dp[i][j] = 0
+     * }
+     */
     public int uniquePathsWithObstaclesSecond(int[][] obstacleGrid) {
-        return 0;
+        int n = obstacleGrid.length;
+        int m = obstacleGrid[0].length;
+        int[] dp = new int[m];
+
+        dp[0] = obstacleGrid[0][0] == 1 ? 0 : 1;
+        for (int j = 1; j < m; j++) {
+            dp[j] = obstacleGrid[0][j] == 1 ? 0 : dp[j - 1];
+        }
+        for (int i = 1; i < n; i++) {
+            dp[0] = obstacleGrid[i][0] == 1 ? 0 : dp[0];
+            for (int j = 1; j < m; j++) {
+                if (obstacleGrid[i][j] == 0) {
+                    dp[j] = dp[j] + dp[j - 1];
+                } else {
+                    dp[j] = 0;
+                }
+            }
+        }
+        return dp[m - 1];
+
+
+
+//        int n = obstacleGrid.length;
+//        int m = obstacleGrid[0].length;
+//        int[][] dp = new int[n][m];
+//        dp[0][0] = obstacleGrid[0][0] == 1 ? 0 : 1;
+//        for (int i = 1; i < n; i++) {
+//            dp[i][0] = obstacleGrid[i][0] == 1 ? 0 : dp[i - 1][0];
+//        }
+//        for (int j = 1; j < m; j++) {
+//            dp[0][j] = obstacleGrid[0][j] == 1 ? 0 : dp[0][j - 1];
+//        }
+//
+//        for (int i = 1; i < n; i++) {
+//            for (int j = 1; j < m; j++) {
+//                if (obstacleGrid[i][j] == 0) {
+//                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+//                }
+//            }
+//        }
+//        return dp[n - 1][m - 1];
     }
 
 
