@@ -36,12 +36,33 @@ public class CoinChange518 {
 
     public static void main(String[] args) {
         int[] coins = {1, 2, 5};
-        System.out.println(new CoinChange518().changeSecond(5, coins));
+        System.out.println(new CoinChange518().changeThird(5, coins));
     }
 
 
+    /**
+     * 1...base
+     *
+     * dp[i][j] 表示用前 i个硬币凑成总金额 j，有几种组合方式
+     * 初始化：dp[0][0] = 1 表示一个硬币都不选
+     *        dp[i][0] = 1 表示一个硬币都不选
+     *        dp[0][i] = 0 0个硬币不能组合成 j
+     * {
+     *     j >= coins[i - 1]    dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]];
+     *     j >  coins[i - 1]    dp[i][j] = dp[i - 1][j]
+     * }
+     */
     public int changeThird(int amount, int[] coins) {
-        return 0;
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            int coin = coins[i - 1];
+            for (int j = coin; j <= amount; j++) {
+                dp[j] += dp[j - coin];
+            }
+        }
+        return dp[amount];
     }
 
 

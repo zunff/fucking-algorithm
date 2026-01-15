@@ -35,6 +35,72 @@ public class UniquePathsWithObstacles63 {
         System.out.println(new UniquePathsWithObstacles63().uniquePathsWithObstaclesSecond(new int[][]{{0,0,0},{0,1,0},{0,0,0}}));
     }
 
+    public int uniquePathsWithObstaclesThird(int[][] obstacleGrid) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 0...base-1
      *
