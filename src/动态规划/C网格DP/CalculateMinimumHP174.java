@@ -36,12 +36,115 @@ public class CalculateMinimumHP174 {
 
     public static void main(String[] args) {
 //        int[][] dungeon = {{-2, -3, 3}, {-5, -10, 1}, {10, 30, -5}};
-        int[][] dungeon = {{0}};
-        System.out.println(new CalculateMinimumHP174().calculateMinimumHP(dungeon));
+//        int[][] dungeon = {{100}};
+        int[][] dungeon = {{2}, {1}};
+        System.out.println(new CalculateMinimumHP174().calculateMinimumHPSecond(dungeon));
     }
 
-    public int calculateMinimumHPSecond(int[][] dungeon) {
+    public int calculateMinimumHPThird(int[][] dungeon) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 0...base-1
+     *
+     * dp[i][j] 表示在进入这个格子之前，至少需要多少血量才不会死，如果需要的生命值小于 1，则赋值为 1，代表至少需要一滴血
+     * 初始化：dp[n - 1][m - 1] = max(1 - dungeon[n - 1][m - 1], 1)
+     *        dp[i][m - 1] = max(dp[i + 1][m - 1] - dungeon[i][m - 1], 1)
+     *        dp[n - 1][j] = max(dp[n - 1][j + 1] - dungeon[n - 1][j], 1)
+     * {
+     *     dp[i][j] = max(min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j], 1)
+     * }
+     */
+    public int calculateMinimumHPSecond(int[][] dungeon) {
+        int n = dungeon.length;
+        int m = dungeon[0].length;
+        int[] dp = new int[m];
+        dp[m - 1] = Math.max(1 - dungeon[n - 1][m - 1], 1);
+        for (int j = m - 2; j >= 0; j--) {
+            dp[j] = Math.max(dp[j + 1] - dungeon[n - 1][j], 1);
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            dp[m - 1] = Math.max(dp[m - 1] - dungeon[i][m - 1], 1);
+            for (int j = m - 2; j >= 0; j--) {
+                dp[j] = Math.max(Math.min(dp[j], dp[j + 1]) - dungeon[i][j], 1);
+            }
+        }
+        return dp[0];
+
+
+//        int n = dungeon.length;
+//        int m = dungeon[0].length;
+//        int[][] dp = new int[n][m];
+//        dp[n - 1][m - 1] = Math.max(1 - dungeon[n - 1][m - 1], 1);
+//        for (int i = n - 2; i >= 0; i--) {
+//            dp[i][m - 1] = Math.max(dp[i + 1][m - 1] - dungeon[i][m - 1], 1);
+//        }
+//        for (int j = m - 2; j >= 0; j--) {
+//            dp[n - 1][j] = Math.max(dp[n - 1][j + 1] - dungeon[n - 1][j], 1);
+//        }
+//
+//        for (int i = n - 2; i >= 0; i--) {
+//            for (int j = m - 2; j >= 0; j--) {
+//                dp[i][j] = Math.max(Math.min(dp[i + 1][j], dp[i][j + 1]) - dungeon[i][j], 1);
+//            }
+//        }
+//        return dp[0][0];
     }
 
 
