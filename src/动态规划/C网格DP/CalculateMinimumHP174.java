@@ -41,6 +41,64 @@ public class CalculateMinimumHP174 {
         System.out.println(new CalculateMinimumHP174().calculateMinimumHPThird(dungeon));
     }
 
+    public int calculateMinimumHPFourth(int[][] dungeon) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 0...base-1
      *

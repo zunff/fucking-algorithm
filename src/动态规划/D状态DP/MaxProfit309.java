@@ -30,6 +30,75 @@ public class MaxProfit309 {
         System.out.println(new MaxProfit309().maxProfit(prices));
     }
 
+    public int maxProfitSecond(int[] prices) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 三种状态：
