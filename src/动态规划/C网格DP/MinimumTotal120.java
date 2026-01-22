@@ -40,11 +40,48 @@ public class MinimumTotal120 {
                 List.of(6, 5, 7),
                 List.of(4, 1, 8, 3)
         );
-        System.out.println(new MinimumTotal120().minimumTotalSecond(triangle));
+        System.out.println(new MinimumTotal120().minimumTotalThird(triangle));
     }
 
+    /**
+     * 0 ... base-1
+     * dp[i][j] 表示从 triangle[i][j] 开始往下降落，到达底部的最小路径和
+     * 初始化：dp[n - 1][j] = triangle[n - 1][j]
+     * {
+     *     dp[i][j] = max(dp[i + 1][j], dp[i][j + 1]) + triangle[i][j]
+     * }
+     * ans = dp[0][0]
+     */
     public int minimumTotalThird(List<List<Integer>> triangle) {
-        return 0;
+        int n = triangle.size();
+        int m = triangle.get(n - 1).size();
+        int[] dp = new int[m];
+        for (int j = 0; j < m; j++) {
+            dp[j] = triangle.get(n - 1).get(j);
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            List<Integer> row = triangle.get(i);
+            for (int j = row.size() - 1; j >= 0; j--) {
+                dp[j] = Math.max(dp[j], dp[j + 1]) + row.get(j);
+            }
+        }
+        return dp[0];
+
+//        int n = triangle.size();
+//        int m = triangle.get(n - 1).size();
+//        int[][] dp = new int[n][m];
+//        for (int j = 0; j < m; j++) {
+//            dp[n - 1][j] = triangle.get(n - 1).get(j);
+//        }
+//
+//        for (int i = n - 2; i >= 0; i--) {
+//            List<Integer> row = triangle.get(i);
+//            for (int j = row.size() - 1; j >= 0; j--) {
+//                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]) + row.get(j);
+//            }
+//        }
+//        return dp[0][0];
     }
 
 
