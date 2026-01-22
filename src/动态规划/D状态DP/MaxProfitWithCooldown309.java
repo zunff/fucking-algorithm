@@ -23,11 +23,11 @@ package 动态规划.D状态DP;
  * 1 <= prices.length <= 5000
  * 0 <= prices[i] <= 1000
  */
-public class MaxProfit309 {
+public class MaxProfitWithCooldown309 {
 
     public static void main(String[] args) {
         int[] prices = {1, 4, 2};
-        System.out.println(new MaxProfit309().maxProfit(prices));
+        System.out.println(new MaxProfitWithCooldown309().maxProfit(prices));
     }
 
     public int maxProfitSecond(int[] prices) {
