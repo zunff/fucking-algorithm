@@ -34,6 +34,72 @@ public class MaxProfitWithTransactionFee714 {
         System.out.println(new MaxProfitWithTransactionFee714().maxProfit(prices, 3));
     }
 
+    public int maxProfitSecond(int[] prices, int fee) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 0...base-1
      * 两种状态：

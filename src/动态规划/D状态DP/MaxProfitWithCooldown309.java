@@ -26,12 +26,121 @@ package 动态规划.D状态DP;
 public class MaxProfitWithCooldown309 {
 
     public static void main(String[] args) {
-        int[] prices = {1, 4, 2};
-        System.out.println(new MaxProfitWithCooldown309().maxProfit(prices));
+        int[] prices = {1,2,3,0,2};
+        System.out.println(new MaxProfitWithCooldown309().maxProfitSecond(prices));
     }
 
-    public int maxProfitSecond(int[] prices) {
+    public int maxProfitThird(int[] prices) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 三种状态：
+     * hold[i] 表示在第i天处于持有状态下的最大利润
+     * sold[i] 表示在第i天处于不持有状态下，并且是刚卖出还在冷静期时下的最大利润
+     * idle[i] 表示在第i天处于不持有状态下，并且冷静期今天旧结束时下的最大利润
+     * 初始化：hold[i] = -price[i]、sold[i] = 0、idle[i] = 0
+     * {
+     *     hold[i] = max(hold[i - 1], idle[i - 1] - price[i])
+     *     sold[i] = hold[i - 1] + price[i]
+     *     idle[i] = max(idle[i - 1], sold[i - 1])
+     * }
+     * ans = max(sold[n - 1], idle[n - 1])
+     */
+    public int maxProfitSecond(int[] prices) {
+        int n = prices.length;
+        int hold = -prices[0];
+        int sold = 0;
+        int idle = 0;
+
+        int lastSold;
+        for (int i = 1; i < n; i++) {
+            lastSold = sold;
+            sold = hold + prices[i];
+            hold = Math.max(hold, idle - prices[i]);
+            idle = Math.max(idle, lastSold);
+        }
+        return Math.max(sold, idle);
+
+
+
+//        int n = prices.length;
+//        int[] hold = new int[n];
+//        int[] sold = new int[n];
+//        int[] idle = new int[n];
+//        hold[0] = -prices[0];
+//
+//        for (int i = 1; i < n; i++) {
+//            hold[i] = Math.max(hold[i - 1], idle[i - 1] - prices[i]);
+//            sold[i] = hold[i - 1] + prices[i];
+//            idle[i] = Math.max(idle[i - 1], sold[i - 1]);
+//        }
+//        return Math.max(sold[n - 1], idle[n - 1]);
     }
 
 
