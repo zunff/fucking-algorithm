@@ -31,11 +31,97 @@ public class MaxProfitWithTransactionFee714 {
 
     public static void main(String[] args) {
         int[] prices = {1,3,7,5,10,3};
-        System.out.println(new MaxProfitWithTransactionFee714().maxProfit(prices, 3));
+        System.out.println(new MaxProfitWithTransactionFee714().maxProfitSecond(prices, 3));
     }
 
-    public int maxProfitSecond(int[] prices, int fee) {
+    public int maxProfitThird(int[] prices, int fee) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 状态：
+     * hold[i] 表示第i天持有时的最大利润
+     * sold[i] 表示第i天不持有时的最大利润
+     * 初始化:hold[0] = -price[0]、sold[0] = 0
+     * {
+     *     hold[i] = max(hold[i - 1], sold[i - 1] - price[i])
+     *     sold[i] = max(sold[i - 1], hold[i - 1] + price[i] - fee)
+     * }
+     */
+    public int maxProfitSecond(int[] prices, int fee) {
+        int n = prices.length;
+        int hold = -prices[0];
+        int sold = 0;
+
+        int lastHold;
+        for (int i = 1; i < n; i++) {
+            lastHold = hold;
+            hold = Math.max(hold, sold - prices[i]);
+            sold = Math.max(sold, lastHold + prices[i] - fee);
+        }
+        return sold;
     }
 
 
