@@ -36,11 +36,45 @@ public class MaximalSquare221 {
                 {'1', '1', '1', '1', '1'},
                 {'1', '0', '0', '1', '0'}
         };
-        System.out.println(new MaximalSquare221().maximalSquareSecond(matrix));
+        System.out.println(new MaximalSquare221().maximalSquareThird(matrix));
     }
 
+    /**
+     * 0..base-1
+     *
+     * dp[i][j] 表示 以 matrix[i][j] 为右下角的只包含'1'的正方形的最大边长是多少
+     * init：dp[i][0] = matrix[i][0] == '1' ? 1 : 0
+     *       dp[0][j] = matrix[0][j] == '1' ? 1 : 0
+     * {
+     *     matrix[i][j] == '1'  dp[i][j] = min(dp[i - 1][j], dp[i - 1][j - 1], dp[i][j - 1]) + 1
+     *     matrix[i][j] == '0'  dp[i][j] = 0
+     * }
+     */
     public int maximalSquareThird(char[][] matrix) {
-        return 0;
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[][] dp = new int[n][m];
+
+        int maxLen = 0;
+
+        for (int i = 0; i < n; i++) {
+            dp[i][0] = matrix[i][0] == '1' ? 1 : 0;
+            maxLen = Math.max(maxLen, dp[i][0]);
+        }
+        for (int j = 0; j < m; j++) {
+            dp[0][j] = matrix[0][j] == '1' ? 1 : 0;
+            maxLen = Math.max(maxLen, dp[0][j]);
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                if (matrix[i][j] == '1') {
+                    dp[i][j] = Math.min(dp[i - 1][j], Math.min(dp[i - 1][j - 1], dp[i][j - 1])) + 1;
+                    maxLen = Math.max(maxLen, dp[i][j]);
+                }
+            }
+        }
+        return maxLen * maxLen;
     }
 
 
