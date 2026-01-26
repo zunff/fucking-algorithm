@@ -40,6 +40,66 @@ public class MaxProfitIII123 {
         System.out.println(new MaxProfitIII123().maxProfitSecond(prices));
     }
 
+    public int maxProfitThird(int k, int[] prices) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * hold1[i] 表示第i天持有时的最大收益
      * sold1[i] 表示第i天不持有时的最大收益
