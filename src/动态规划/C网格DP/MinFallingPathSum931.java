@@ -30,11 +30,42 @@ public class MinFallingPathSum931 {
     public static void main(String[] args) {
         int[][] matrix = {{2,1,3},{6,5,4},{7,8,9}};
 //        int[][] matrix = {{17,82},{1,-44}};
-        System.out.println(new MinFallingPathSum931().minFallingPathSumSecond(matrix));
+        System.out.println(new MinFallingPathSum931().minFallingPathSumThird(matrix));
     }
 
+    /**
+     * 0...base-1
+     *
+     * dp[i][j] 表示 下降到 matrix[i][j]时的最小路径和
+     * 初始化：dp[0][j] = matrix[0][j]
+     * {
+     *     dp[i][j] = min(dp[i - 1][j - 1] , dp[i - 1][j], dp[i - 1][j + 1]) + matrix[i][j]
+     * }
+     */
     public int minFallingPathSumThird(int[][] matrix) {
-        return 0;
+        int INF = 100 * 100 + 1;
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[] dp = new int[m];
+
+        for (int j = 0; j < m; j++) {
+            dp[j] = matrix[0][j];
+        }
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int left = j > 0 ? dp[j - 1] : INF;
+                int right = j < m - 1 ? dp[j + 1] : INF;
+                dp[j] = Math.min(left, Math.min(dp[j], right)) + matrix[i][j];
+            }
+        }
+
+        int ans = INF;
+        for (int j = 0; j < m; j++) {
+            ans = Math.min(ans, dp[j]);
+        }
+
+        return ans;
     }
 
 
