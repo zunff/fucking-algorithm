@@ -41,6 +41,66 @@ public class HouseRobber198 {
         System.out.println(new HouseRobber198().rob(nums));
     }
 
+    public int robSecond(int[] nums) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public int rob(int[] nums) {
         int n = nums.length;
         int rob = nums[0];
