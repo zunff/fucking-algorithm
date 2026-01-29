@@ -26,22 +26,13 @@ package 动态规划.D状态DP;
  */
 public class HouseRobber198 {
 
-    /**
-     * 两种状态：
-     * 1.rob[i]  偷窃第i个房屋，能偷窃到的最高金额
-     * 2.skip[i] 不偷窃第i个房屋，能偷窃到的最高金额
-     * 初始化：rob[0] = nums[0], skip[0] = 0
-     * {
-     *     rob[i] = skip[i - 1] + nums[i]
-     *     skip[i] = max(skip[i - 1], rob[i - 1])
-     * }
-     */
+
     public static void main(String[] args) {
         int[] nums = {2,7,9,3,1};
-        System.out.println(new HouseRobber198().rob(nums));
+        System.out.println(new HouseRobber198().robSecond(nums));
     }
 
-    public int robSecond(int[] nums) {
+    public int robThird(int[] nums) {
         return 0;
     }
 
@@ -101,6 +92,117 @@ public class HouseRobber198 {
 
 
 
+
+
+
+
+
+
+
+
+    /**
+     * 状态定义：
+     * 1. rob[i] 代表偷第i个房子能得到的最大利润
+     * 2. notRob[i] 代表不偷第i个房子能得到的最大利润
+     * 初始化：rob[0] = nums[0]、notRob[0] = 0
+     * {
+     *     rob[i] = notRob[i - 1] + nums[i]
+     *     notRob[i] = max(notRob[i - 1], rob[i - 1])
+     * }
+     */
+    public int robSecond(int[] nums) {
+        int n = nums.length;
+        int rob = nums[0];
+        int notRob = 0;
+
+        int lastRob;
+        for (int i = 1; i < n; i++) {
+            lastRob = rob;
+
+            rob = notRob + nums[i];
+            notRob = Math.max(lastRob, notRob);
+        }
+        return Math.max(rob, notRob);
+
+
+
+//        int n = nums.length;
+//        int[] rob = new int[n];
+//        int[] notRob = new int[n];
+//        rob[0] = nums[0];
+//
+//        for (int i = 1; i < n; i++) {
+//            rob[i] = notRob[i - 1] + nums[i];
+//            notRob[i] = Math.max(rob[i - 1], notRob[i - 1]);
+//        }
+//        return Math.max(notRob[n - 1], rob[n - 1]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 两种状态：
+     * 1.rob[i]  偷窃第i个房屋，能偷窃到的最高金额
+     * 2.skip[i] 不偷窃第i个房屋，能偷窃到的最高金额
+     * 初始化：rob[0] = nums[0], skip[0] = 0
+     * {
+     *     rob[i] = skip[i - 1] + nums[i]
+     *     skip[i] = max(skip[i - 1], rob[i - 1])
+     * }
+     */
     public int rob(int[] nums) {
         int n = nums.length;
         int rob = nums[0];
