@@ -34,6 +34,72 @@ public class HouseRobberIII337 {
         System.out.println(new HouseRobberIII337().robSecond(root));
     }
 
+    public int robThird(TreeNode root) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * dfs
      *
