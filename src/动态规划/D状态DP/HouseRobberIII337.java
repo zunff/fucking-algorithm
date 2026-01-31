@@ -31,11 +31,103 @@ public class HouseRobberIII337 {
         root.right = new TreeNode(3);
         root.left.right = new TreeNode(3);
         root.right.right = new TreeNode(1);
-        System.out.println(new HouseRobberIII337().robSecond(root));
+        System.out.println(new HouseRobberIII337().robThird(root));
     }
 
-    public int robThird(TreeNode root) {
+    public int robFourth(TreeNode root) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 状态定义：
+     * cur[0] 表示选当前节点的情况下的最高金额
+     * cur[1] 表示不选当前节点情况下的最高金额
+     *
+     * {
+     *     cur[0] = left[1] + right[1] + val
+     *     cur[1] = max(left[0], left[1]) + max(right[0], right[1])
+     * }
+     */
+    public int robThird(TreeNode root) {
+        int[] res = dfsThird(root);
+        return Math.max(res[0], res[1]);
+    }
+
+    public int[] dfsThird(TreeNode root) {
+        if (root == null) {
+            return new int[]{2, 2};
+        }
+        int[] res = new int[2];
+
+        int[] left = dfsThird(root.left);
+        int[] right = dfsThird(root.right);
+
+        res[0] = left[1] + right[1] + root.val;
+        res[1] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+
+        return res;
     }
 
 
