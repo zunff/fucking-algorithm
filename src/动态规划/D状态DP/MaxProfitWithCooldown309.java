@@ -27,11 +27,38 @@ public class MaxProfitWithCooldown309 {
 
     public static void main(String[] args) {
         int[] prices = {1,2,3,0,2};
-        System.out.println(new MaxProfitWithCooldown309().maxProfitSecond(prices));
+        System.out.println(new MaxProfitWithCooldown309().maxProfitThird(prices));
     }
 
+    /**
+     * 0...base-1
+     * 状态定义：
+     * hold[i]  表示在第 i+1 天是持有状态
+     * sold[i]  表示在第 i+1 天是不持有但处于冷却期状态
+     * wait[i]  表示在第 i+1 天是待持有 即可购买状态
+     *
+     * 初始化；hold[0] = -price[0]
+     * {
+     *      hold[i] = max(hold[i - 1], wait[i - 1] - price[i])
+     *      sold[i] = hold[i - 1] + price[i]
+     *      wait[i] = max(wait[i - 1], sold[i - 1])
+     * }
+     * ans = max(sold[n - 1], wait[n - 1])
+     */
     public int maxProfitThird(int[] prices) {
-        return 0;
+        int n = prices.length;
+        int[] hold = new int[n];
+        int[] sold = new int[n];
+        int[] wait = new int[n];
+
+        hold[0] = -prices[0];
+
+        for (int i = 1; i < n; i++) {
+            hold[i] = Math.max(hold[i - 1], wait[i - 1] - prices[i]);
+            sold[i] = hold[i - 1]+ prices[i];
+            wait[i] = Math.max(wait[i - 1], sold[i - 1]);
+        }
+        return Math.max(sold[n - 1], wait[n - 1]);
     }
 
 
