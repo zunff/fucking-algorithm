@@ -29,12 +29,99 @@ package 动态规划.E区间DP;
 public class PredictTheWinner486 {
     public static void main(String[] args) {
         int[] nums = {1,5,2};
-        System.out.println(new PredictTheWinner486().predictTheWinner(nums));
+        System.out.println(new PredictTheWinner486().predictTheWinnerSecond(nums));
+    }
+
+    public boolean predictTheWinnerThird(int[] nums) {
+        return false;
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * dp[i][j] 表示 在区间nums[i...j]内，先手玩家与后手玩家的最大分差
+     * 初始化：i == j dp[i][j] = nums[i]
+     *
+     * {
+     *     dp[i][j] = max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1])
+     * }
+     */
     public boolean predictTheWinnerSecond(int[] nums) {
-        return false;
+        int n = nums.length;
+        int[][] dp = new int[n][n];
+
+        for (int i = 0 ; i < n; i++) {
+            dp[i][i] = nums[i];
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = i+ 1; j < n; j++) {
+                dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
+            }
+        }
+        return dp[0][n - 1] >= 0;
     }
 
 
