@@ -37,11 +37,44 @@ public class MaxProfitIII123 {
 
     public static void main(String[] args) {
         int[] prices = {1,2,3,4,5};
-        System.out.println(new MaxProfitIII123().maxProfitSecond(prices));
+        System.out.println(new MaxProfitIII123().maxProfitThird(prices));
     }
 
-    public int maxProfitThird(int k, int[] prices) {
-        return 0;
+    /**
+     * hold1[i] 表示在第i天第一次持有时的最大收益
+     * sold1[i] 表示在第i天第一次卖出后的最大收益
+     * hold2[i] 表示在第i天第二次持有时的最大收益
+     * sold2[i] 表示在第i天第二次卖出后的最大收益
+     * 初始化：hold1[0] = -price[0]
+     *        sold1[0] = 0
+     *        hold2[0] = -price[0]
+     *        sold2[0] = 0
+     * {
+     *     hold1[i] = max(hold1[i - 1], -price[i])
+     *     sold1[i] = max(sold1[i - 1], hold1[i - 1] + price[i])
+     *     hold2[i] = max(hold2[i - 1], sold1[i - 1] - price[i])
+     *     sold2[i] = max(sold2[i - 1], hold2[i - 1] + price[i])
+     * }
+     *
+     * max(sold1[n - 1], sold2[n - 1])
+     */
+    public int maxProfitThird(int[] prices) {
+        int n = prices.length;
+        int[] hold1 = new int[n];
+        int[] sold1 = new int[n];
+        int[] hold2 = new int[n];
+        int[] sold2 = new int[n];
+
+        hold1[0] = -prices[0];
+        hold2[0] = -prices[0];
+
+        for (int i = 1; i < n; i++) {
+            hold1[i] = Math.max(hold1[i - 1], -prices[i]);
+            sold1[i] = Math.max(sold1[i - 1], hold1[i - 1] + prices[i]);
+            hold2[i] = Math.max(hold2[i - 1], sold1[i - 1] - prices[i]);
+            sold2[i] = Math.max(sold2[i - 1], hold2[i - 1] + prices[i]);
+        }
+        return sold2[n - 1];
     }
 
 
