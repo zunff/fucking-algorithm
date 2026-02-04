@@ -28,8 +28,172 @@ public class BurstBalloons312 {
 
     public static void main(String[] args) {
         int[] nums = {3,1,5,8};
-        System.out.println(new BurstBalloons312().maxCoins(nums));
+        System.out.println(new BurstBalloons312().maxCoinsSecond(nums));
     }
+
+    public int maxCoinsThird(int[] nums) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 定义 safe = [1...nums...1]
+     * dp[i][j] 表示在开区间 safeNums[i,j]上可获得的最大硬币数、k 为这个区间内最后被戳的气球
+     * 限制：j - i >= 2
+     * {
+     *     dp[i][j] = k max(dp[i][k] + dp[k][j] + safe[i] * safe[k] * safe[j])
+     * }
+     */
+    public int maxCoinsSecond(int[] nums) {
+        int n = nums.length;
+        int N = n + 2;
+
+        int[] safe = new int[N];
+        safe[0] = 1;
+        safe[N - 1] = 1;
+        System.arraycopy(nums, 0, safe, 1, n);
+
+        int[][] dp = new int[N][N];
+
+        for (int len = 2; len < N; len++) {
+            for (int i = 0; i + len < N; i++) {
+                int j = i + len;
+                for (int k = i + 1; k < j; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + safe[i] * safe[k] * safe[j]);
+                }
+            }
+        }
+
+        return dp[0][N - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * dp[i][j] 表示 在开区间 (i,j) 内戳破所有气球的最大硬币数量
