@@ -32,11 +32,37 @@ public class MinScoreTriangulation1039 {
 
     public static void main(String[] args) {
         int[] values = {3,7,4,5};
-        System.out.println(new MinScoreTriangulation1039().minScoreTriangulation(values));
+        System.out.println(new MinScoreTriangulation1039().minScoreTriangulationSecond(values));
     }
 
+    /**
+     * dp[i][j] 表示 values[i...j] 的多边形三角剖分的最低得分 闭区间、且 i < k < j
+     * 限制：j - i >= 2，符合条件的dp[i][j]初始化为INF，不符合条件的初始化为0z表示最低分为0
+     * {
+     *      dp[i][j] = k min(dp[i][j], dp[i][k] + dp[k][j] + values[i] * values[j] * values[k])
+     * }
+     */
     public int minScoreTriangulationSecond(int[] values) {
-        return 0;
+        int n = values.length;
+        int INF = 100 * 100 * 100 * 48;
+
+        int[][] dp = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 2; j < n; j++) {
+                dp[i][j] = INF;
+            }
+        }
+
+        for (int len = 2; len < n; len++) {
+            for (int i = 0; i + len < n; i++) {
+                int j = i + len;
+                for (int k = i + 1; k < j; k++) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k][j] + values[i] * values[k] * values[j]);
+                }
+            }
+        }
+        return dp[0][n - 1];
     }
 
 
