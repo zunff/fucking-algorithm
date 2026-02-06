@@ -29,11 +29,31 @@ public class HouseRobber198 {
 
     public static void main(String[] args) {
         int[] nums = {2,7,9,3,1};
-        System.out.println(new HouseRobber198().robSecond(nums));
+        System.out.println(new HouseRobber198().robThird(nums));
     }
 
+    /**
+     * 状态：
+     * rob[i]  表示第 i 个房间抢 的最大收益
+     * skip[i] 表示第 i 个房间不抢 的最大收益
+     * 初始化：rob[0] = nums[0]
+     * {
+     *     rob[i] = skip[i - 1] + nums[i]
+     *     skip[i] = max(skip[i - 1], rob[i - 1])
+     * }
+     */
     public int robThird(int[] nums) {
-        return 0;
+        int n = nums.length;
+        int[] rob = new int[n];
+        int[] skip = new int[n];
+        rob[0] = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            rob[i] = skip[i - 1] + nums[i];
+            skip[i] = Math.max(skip[i - 1], rob[i - 1]);
+        }
+
+        return Math.max(rob[n - 1], skip[n - 1]);
     }
 
 
