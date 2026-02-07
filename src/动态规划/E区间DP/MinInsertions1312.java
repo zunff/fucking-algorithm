@@ -28,11 +28,31 @@ package 动态规划.E区间DP;
 public class MinInsertions1312 {
     public static void main(String[] args) {
         String s = "mbadm";
-        System.out.println(new MinInsertions1312().minInsertions(s));
+        System.out.println(new MinInsertions1312().minInsertionsSecond(s));
     }
 
+    /**
+     * dp[i][j] 表示子串 s[i...j] 成为回文子串的最少插入次数
+     *
+     * {
+     *     s[i] == s[j]     dp[i][j] = dp[i + 1][j - 1]
+     *     s[i] != s[j]     dp[i][j] = min(dp[i][j - 1], dp[i + 1][j]) + 1
+     * }
+     */
     public int minInsertionsSecond(String s) {
-        return 0;
+        int n = s.length();
+        int[][] dp = new int[n][n];
+
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(dp[i][j - 1], dp[i + 1][j]) + 1;
+                }
+            }
+        }
+        return dp[0][n - 1];
     }
 
 
