@@ -27,8 +27,196 @@ import java.util.Arrays;
  */
 public class PalindromePartitioningII132 {
     public static void main(String[] args) {
-        System.out.println(new PalindromePartitioningII132().minCut("aacbab"));
+        System.out.println(new PalindromePartitioningII132().minCutSecond("aacbab"));
     }
+
+    public int minCutThird(String s) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 最后一刀，假设砍在j - 1 和 j 之间，那么 s[j..n]一定是回文串，因为是最后一刀
+     * 那么答案就变成了s[0, j-1]至少要多少次能将所有子串都分割为回文串，发现是最小子问题
+     * 要提前预处理哪些子串是回文串，作为区间内的最后一段
+     * p[i][j] 表示s[i..j]是不是回文串
+     * {
+     *     s[i] == s[j]     p[i][j] = p[i + 1][j - 1] || j - i <= 2
+     *     s[i] != s[j]     p[i][j] = false
+     * }
+     *
+     *
+     * dp[i] 表示 s[0...i] 中，至少要分割多少次才能使得所有子串是回文串，遍历所有符合s[j,i]是回文串的j
+     * 如果s[0,i]本身就是回文串，则直接赋值 dp[i] = 0，表示不需要砍
+     * {
+     *     p[0][i] == true                          dp[i] = 0
+     *     p[0][i] == false && p[j][i] == true      dp[i] = min(dp[i], dp[j - 1] + 1)
+     * }
+     *
+     */
+    public int minCutSecond(String s) {
+        int n = s.length();
+        boolean[][] p = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
+            p[i][i] = true;
+        }
+        for (int len = 1; len < n; len++) {
+            for (int i = 0; i + len < n; i++) {
+                int j = i + len;
+                if (s.charAt(i) == s.charAt(j)) {
+                    p[i][j] = p[i + 1][j - 1] || j - i <= 2;
+                }
+            }
+        }
+
+        int INF = 2001;
+        int[] dp = new int[n];
+        Arrays.fill(dp, INF);
+        dp[0] = 0;
+        for (int i = 1; i < n; i++) {
+            if (p[0][i]) {
+                dp[i] = 0;
+                continue;
+            }
+            for (int j = 1; j <= i; j++) {
+                if (p[j][i]) {
+                    dp[i] = Math.min(dp[i], dp[j - 1] + 1);
+                }
+            }
+        }
+
+        return dp[n - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * aacbab -> aa | c | bab
