@@ -27,9 +27,99 @@ package 动态规划.E区间DP;
  */
 public class MinInsertions1312 {
     public static void main(String[] args) {
-        String s = "mbadm";
-        System.out.println(new MinInsertions1312().minInsertionsSecond(s));
+        String s = "zjveiiwvc";
+        System.out.println(new MinInsertions1312().minInsertionsThird(s));
     }
+
+    /**
+     * dp[i][j] 表示让 s[i...j] 变成回文串最少需要插入多少个字符
+     *
+     * {
+     *     s[i] == s[j]     dp[i][j] = dp[i + 1][j - 1]
+     *     s[i] != s[j]     dp[i][j] = min(dp[i + 1][j], dp[i][j - 1]) + 1
+     * }
+     * 按长度遍历
+     */
+    public int minInsertionsThird(String s) {
+        int n = s.length();
+        int[][] dp = new int[n][n];
+
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i + len <= n; i++) {
+                int j = i + len - 1;
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(dp[i + 1][j], dp[i][j - 1]) + 1;
+                }
+            }
+        }
+        return dp[0][n - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * dp[i][j] 表示子串 s[i...j] 成为回文子串的最少插入次数
