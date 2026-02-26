@@ -28,11 +28,39 @@ public class BurstBalloons312 {
 
     public static void main(String[] args) {
         int[] nums = {3,1,5,8};
-        System.out.println(new BurstBalloons312().maxCoinsSecond(nums));
+        System.out.println(new BurstBalloons312().maxCoinsThird(nums));
     }
 
+    /**
+     * 先填充原数组的边界为 1 为 safeNums：    1,3,1,5,8,1
+     * 考虑最后一个被戳的气球 i，他的结果为 1 * safeNums[i] * 1，即 左边界 * safeNums[i] * 右边界
+     * 子问题是 safeNums[0...i] 和 safeNums[i...n+1] 能获得的最大硬币数
+     * i 无法确定，需要遍历后取最大值
+     *
+     * dp[i][j] 表示 在safeNums[i...j]中能获得的最大硬币数       闭区间
+     * {
+     *     k in (i, j)      dp[i][j] = k max(safeNums[k] * safeNums[i] * safeNums[j] + dp[i][k] + dp[k][j])
+     * }
+     */
     public int maxCoinsThird(int[] nums) {
-        return 0;
+        int n = nums.length;
+        int N = n + 2;
+        int[] safeNums = new int[N];
+        System.arraycopy(nums, 0, safeNums, 1, n);
+        safeNums[0] = 1;
+        safeNums[N - 1] = 1;
+
+        int[][] dp = new int[N][N];
+
+        for (int i = N - 3; i >= 0; i--) {
+            for (int j = i + 2; j <= N - 1; j++) {
+                for (int k = i + 1; k < j; k++) {
+                    dp[i][j] = Math.max(safeNums[i] * safeNums[k] * safeNums[j] + dp[i][k] + dp[k][j], dp[i][j]);
+                }
+            }
+        }
+
+        return dp[0][N - 1];
     }
 
 
