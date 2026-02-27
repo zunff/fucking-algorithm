@@ -27,11 +27,125 @@ import java.util.Arrays;
  */
 public class PalindromePartitioningII132 {
     public static void main(String[] args) {
-        System.out.println(new PalindromePartitioningII132().minCutSecond("aacbab"));
+        System.out.println(new PalindromePartitioningII132().minCutThird("aacbab"));
     }
 
-    public int minCutThird(String s) {
+    public int minCutFourth(String s) {
         return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 考虑最后一刀，右边一定是回文串，假设切点在 j - 1 和 j 之间，那么子问题变成了 s[0...j] 最少要分割多少次使每个子串都是回文串
+     *
+     * 预处理得到所有回文子串 p[i][j] 表示 s[i...j] 是不是回文串
+     * 初始化 i == j      p[i][i] = true
+     * {
+     *     s[i] == s[j]     p[i][j] = p[i + 1][j - 1] || j - i <= 2
+     *     s[i] != s[j]     p[i][j] = false
+     * }
+     *
+     * dp[i] 表示在 s[0...i]中最少要分割多少次使每个子串都是回文串，定义 0 < j <= i
+     * {
+     *     p[0][i] == true                      dp[i] = 0
+     *     p[0][i] == false && p[j][i] == true  dp[i] = min(dp[i], dp[j - 1] + 1)
+     * }
+     */
+    public int minCutThird(String s) {
+        int n = s.length();
+        boolean[][] p = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
+            p[i][i] = true;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    p[i][j] = p[i + 1][j - 1] || j - i <= 2;
+                }
+            }
+        }
+
+        int INF = 2001;
+        int[] dp = new int[n];
+        Arrays.fill(dp, INF);
+        dp[0] = 0;
+        for (int i = 1; i < n; i++) {
+            if (p[0][i]) {
+                dp[i] = 0;
+                continue;
+            }
+            for (int j = 0; j <= i; j++) {
+                if (p[j][i]) {
+                    dp[i] = Math.min(dp[i], dp[j - 1] + 1);
+                }
+            }
+        }
+        return dp[n - 1];
     }
 
 
