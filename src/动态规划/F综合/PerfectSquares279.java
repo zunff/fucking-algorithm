@@ -22,8 +22,131 @@ package 动态规划.F综合;
 public class PerfectSquares279 {
 
     public static void main(String[] args) {
-        System.out.println(new PerfectSquares279().numSquares(13));
+        System.out.println(new PerfectSquares279().numSquaresSecond(13));
     }
+
+    /**
+     * 转化问题为完全背包：先预处理nums数组为小于 n 的所有完全平方数.   问题变成从 nums 中最少选出几个数，和为 n
+     * dp[i][j] 表示在前 i 个数中，在容量j下，最少选几个数能使得和为 j
+     * 初始化：dp[0][0] = 0
+     *        dp[0][j] = INF
+     *        dp[i][0] = 0
+     * {
+     *    j >= nums[i]  dp[i][j] = min(dp[i - 1][j], dp[i][j - nums[i]] + 1)
+     *    j < nums[i]   dp[i][j] = dp[i - 1][j]
+     * }
+     */
+    public int numSquaresSecond(int n) {
+        int size = (int) Math.sqrt(n);
+        int[] nums = new int[size];
+        for (int i = 0; i < size; i++) {
+            nums[i] = (int) Math.pow(i + 1, 2);
+        }
+        int[] dp = new int[n + 1];
+        int INF = 105;
+        for (int j = 1; j <= n; j++) {
+            dp[j] = INF;
+        }
+        for (int i = 1; i <= size; i++) {
+            for (int j = nums[i - 1]; j <= n; j++) {
+                dp[j] = Math.min(dp[j], dp[j - nums[i - 1]] + 1);
+            }
+        }
+
+        return dp[n];
+
+//        int size = (int) Math.sqrt(n);
+//        int[] nums = new int[size];
+//        for (int i = 0; i < size; i++) {
+//            nums[i] = (int) Math.pow(i + 1, 2);
+//        }
+//        int[][] dp = new int[size + 1][n + 1];
+//        int INF = 105;
+//        for (int j = 1; j <= n; j++) {
+//            dp[0][j] = INF;
+//        }
+//        for (int i = 1; i <= size; i++) {
+//            for (int j = 1; j <= n; j++) {
+//                if (j >= nums[i - 1]) {
+//                    dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - nums[i - 1]] + 1);
+//                } else {
+//                    dp[i][j] = dp[i - 1][j];
+//                }
+//            }
+//        }
+//
+//        return dp[size][n];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      *  先预处理出 所有 < n 的完全平方数 nums
