@@ -28,8 +28,105 @@ public class BurstBalloons312 {
 
     public static void main(String[] args) {
         int[] nums = {3,1,5,8};
-        System.out.println(new BurstBalloons312().maxCoinsThird(nums));
+        System.out.println(new BurstBalloons312().maxCoinsFourth(nums));
     }
+
+    /**
+     * 考虑最后一步，戳爆最后一个气球 i 时，一定是      1 * nums[i] * 1
+     * 子问题是 nums[0...i) 跟 nums(i...n]
+     * 先预处理 safeNums = [1, nums, 1]
+     * 那么 子问题就变成了 safeNums(0...i) 跟 safeNums(i...n+1)开区间，是最优子问题
+     *
+     * dp[i][j] 表示在子数组 safeNums[i..j]中能获得硬币的最大数量，存在戳点 k(i < k < j)  开区间
+     *
+     * {
+     *     dp[i][j] = k max(dp[i][k] + dp[k][j] + safeNums[i] * safeNums[k] * safeNums[j])
+     * }
+     *
+     */
+    public int maxCoinsFourth(int[] nums) {
+        int n = nums.length;
+        int N = n + 2;
+        int[] safeNums = new int[N];
+        System.arraycopy(nums, 0, safeNums, 1, n);
+        safeNums[0] = 1;
+        safeNums[N - 1] = 1;
+
+        int[][] dp = new int[N][N];
+        for (int i = N - 3; i >= 0; i--) {
+            for (int j = i + 2; j < N; j++) {
+                for (int k = i + 1; k < j; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + safeNums[i] * safeNums[k] * safeNums[j]);
+                }
+            }
+        }
+        return dp[0][N - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 先填充原数组的边界为 1 为 safeNums：    1,3,1,5,8,1
