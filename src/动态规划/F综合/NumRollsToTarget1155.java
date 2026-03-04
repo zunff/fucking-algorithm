@@ -22,7 +22,7 @@ package 动态规划.F综合;
  * 示例 3：
  * 输入：n = 30, k = 30, target = 500
  * 输出：222616187
- * 解释：返回的结果必须对 109 + 7 取模。
+ * 解释：返回的结果必须对 10^9 + 7 取模。
  *
  *
  * 提示：
@@ -32,8 +32,161 @@ package 动态规划.F综合;
 public class NumRollsToTarget1155 {
 
     public static void main(String[] args) {
-        System.out.println(new NumRollsToTarget1155().numRollsToTarget(30, 30, 500));
+        System.out.println(new NumRollsToTarget1155().numRollsToTargetSecond(30, 30, 500));
     }
+
+    public int numRollsToTargetThird(int n, int k, int target) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * dp[i][j] 表示在前 i 个骰子里面，所有骰子总和等于j，有几种方式，定义 1 <= z <= k
+     * 初始化：dp[1][1] = 1
+     *        dp[1][j] = j <= k ? 1 : 0
+     *        dp[i][1] = 0
+     * {
+     *     dp[i][j] = z.for sum(dp[i - 1][j - z])
+     * }
+     */
+    public int numRollsToTargetSecond(int n, int k, int target) {
+        int MOD = 1000000007;
+
+        int[][] dp = new int[n + 1][target + 1];
+        for (int j = 1; j <= target; j++) {
+            dp[1][j] = j <= k ? 1 : 0;
+        }
+
+        for (int i = 2; i <= n; i++) {
+            for (int j = 2; j <= target; j++) {
+                for (int z = 1; z <= k && j - z >= 0; z++) {
+                    dp[i][j] = (dp[i][j] + dp[i - 1][j - z]) % MOD;
+                }
+            }
+        }
+
+        return dp[n][target];
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
