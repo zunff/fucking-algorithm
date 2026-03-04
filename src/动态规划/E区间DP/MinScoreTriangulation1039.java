@@ -32,8 +32,99 @@ public class MinScoreTriangulation1039 {
 
     public static void main(String[] args) {
         int[] values = {3,7,4,5};
-        System.out.println(new MinScoreTriangulation1039().minScoreTriangulationSecond(values));
+        System.out.println(new MinScoreTriangulation1039().minScoreTriangulationThird(values));
     }
+
+    /**
+     * 考虑最后一个三角形，三个点定义为 i j k，并且 i < k < j，可转换为 vi * vj * vk + dp[i][k] + dp[k][j]
+     * 限制 j - i >= 2
+     * dp[i][j] 表示在values[i...j]中，这个多边形在三角形剖分后可以得到的最低分，闭区间
+     * 初始化：len = 2 时，dp[i][j] = vi * vj * vk
+     * {
+     *     dp[i][j] = k min(dp[i][k] + dp[k][j] + values[i] * values[j] * values[k])
+     * }
+     */
+    public int minScoreTriangulationThird(int[] values) {
+        int INF = 48 * 100 * 100 * 100 + 1;
+        int n = values.length;
+        int[][] dp = new int[n][n];
+
+        for (int len = 2; len < n; len++) {
+            for (int i = 0; i + len< n; i++) {
+                int j = i + len;
+                dp[i][j] = INF;
+                for (int k = i + 1; k < j; k++) {
+                    dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k][j] + values[i] * values[k] * values[j]);
+                }
+            }
+        }
+
+        return dp[0][n - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * dp[i][j] 表示 values[i...j] 的多边形三角剖分的最低得分 闭区间、且 i < k < j
