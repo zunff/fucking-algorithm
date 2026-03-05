@@ -27,6 +27,80 @@ public class BinaryTreeMaximumPathSum124 {
         System.out.println(new BinaryTreeMaximumPathSum124().maxPathSum(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
     }
 
+    public int maxPathSumSecond(TreeNode root) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     int maxSum = Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
         dfs(root);
