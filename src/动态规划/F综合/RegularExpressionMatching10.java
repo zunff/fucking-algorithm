@@ -32,8 +32,181 @@ package 动态规划.F综合;
  */
 public class RegularExpressionMatching10 {
     public static void main(String[] args) {
-        System.out.println(new RegularExpressionMatching10().isMatch("aa", ".*"));
+        System.out.println(new RegularExpressionMatching10().isMatchSecond("aa", ".*"));
     }
+
+
+    public boolean isMatchThird(String s, String p) {
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 1...n
+     *
+     * dp[i][j] 表示 s 的前 i 个字符，和 p 的前 j 个字符，是否适配
+     * 初始化：dp[0][0] = true
+     *        dp[i][0] = false
+     *        dp[0][j] = j > 2 && p[j - 1] == '*' && dp[0][j - 2]
+     * {
+     *     if p[j - 1] == '*' :
+     *          if s[i - 1] == p[j - 2] || p[j - 2] == '.':
+     *              dp[i][j] = dp[i - 1][j] || dp[i][j - 2]     // dp[i - 1][j]表示*代表多个，dp[i][j - 2]表示*代表0个
+     *          else :
+     *              dp[i][j] = dp[i][j - 2]                     // 只能代表 0 个
+     *     else :
+     *          if s[i - 1] == p[j - 1] || p[j - 1] == '.' :
+     *              dp[i][j] = dp[i - 1][j - 1]
+     *          else :
+     *              dp[i][j] = false
+     * }
+     */
+    public boolean isMatchSecond(String s, String p) {
+        int n = s.length();
+        int m = p.length();
+
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        dp[0][0] = true;
+        for (int j = 2; j <= m; j++) {
+            dp[0][j] = p.charAt(j - 1) == '*' && dp[0][j - 2];
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (p.charAt(j - 1) == '*') {
+                    if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.') {
+                        dp[i][j] = dp[i - 1][j] || dp[i][j - 2];
+                    } else {
+                        dp[i][j] = dp[i][j - 2];
+                    }
+                } else {
+                    if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') {
+                        dp[i][j] = dp[i - 1][j - 1];
+                    }
+                }
+            }
+        }
+
+        return dp[n][m];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 1 ... n
