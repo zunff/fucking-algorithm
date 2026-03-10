@@ -1,5 +1,8 @@
 package BFS和DFS;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * 200. 岛屿数量 中等
  *
@@ -35,19 +38,56 @@ package BFS和DFS;
 public class NumberOfIslands200 {
 
     public static void main(String[] args) {
-//        char[][] grid = new char[][]{
-//                {'1', '1', '0', '0', '0'},
-//                {'1', '1', '0', '0', '0'},
-//                {'0', '0', '1', '0', '0'},
-//                {'0', '0', '0', '1', '1'}
-//        };
         char[][] grid = new char[][]{
-                {'1', '1', '1'},
-                {'0', '1', '0'},
-                {'1', '1', '1'},
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'0', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'}
         };
-        System.out.println(new NumberOfIslands200().numIslandsDfs(grid));
+//        char[][] grid = new char[][]{
+//                {'1', '1', '1'},
+//                {'0', '1', '0'},
+//                {'1', '1', '1'},
+//        };
+        System.out.println(new NumberOfIslands200().numIslandsBfs(grid));
     }
+
+    public int numIslandsBfs(char[][] grid) {
+        int result = 0;
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][] direction = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        Queue<int[]> queue = new ArrayDeque<>();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == '1') {
+                    result++;
+                    // bfs 把整个岛淹没
+                    grid[i][j] = '0';
+                    queue.add(new int[]{i, j});
+                    while (!queue.isEmpty()) {
+                        int[] index = queue.poll();
+                        for (int[] d : direction) {
+                            int x = index[0] + d[0];
+                            int y = index[1] + d[1];
+                            if (x >= 0 && x < n && y >= 0 && y < m && grid[x][y] == '1') {
+                                grid[x][y] = '0';
+                                queue.add(new int[]{x, y});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+
+
+
 
     public int numIslandsDfs(char[][] grid) {
         int result = 0;
