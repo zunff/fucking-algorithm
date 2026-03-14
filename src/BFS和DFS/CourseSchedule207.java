@@ -1,7 +1,9 @@
 package BFS和DFS;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * 207. 课程表 中等
@@ -33,12 +35,49 @@ import java.util.List;
  */
 public class CourseSchedule207 {
     public static void main(String[] args) {
-        System.out.println(new CourseSchedule207().canFinish(2, new int[][]{{1,0}, {0,1}}));
+        System.out.println(new CourseSchedule207().canFinish_Kahn(2, new int[][]{{1,0}}));
     }
 
 
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        return false;
+    /**
+     * Kahn 算法（入度法拓扑排序）：Kahn’s algorithm
+     */
+    public boolean canFinish_Kahn(int numCourses, int[][] prerequisites) {
+        // 邻接表
+        List<Integer>[] adj = new ArrayList[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            adj[i] = new ArrayList<>();
+        }
+        for (int[] pre : prerequisites) {
+            int a = pre[0], b = pre[1];
+            adj[b].add(a);
+        }
+        // 入度
+        int[] inDegree = new int[numCourses];
+        for (int[] pre : prerequisites) {
+            inDegree[pre[0]]++;
+        }
+
+        // 找出入度为 0 的塞入队列作为开始
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                queue.offer(i);
+            }
+        }
+
+        int taken = 0;
+        while (!queue.isEmpty()) {
+            Integer i = queue.poll();
+            taken++;
+            for (Integer p : adj[i]) {
+                if (--inDegree[p] == 0) {
+                    queue.offer(p);
+                }
+            }
+        }
+
+        return taken == numCourses;
     }
 
 
