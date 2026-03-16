@@ -35,7 +35,7 @@ import java.util.Map;
  */
 public class MinimumWindowSubstring76 {
     public static void main(String[] args) {
-        System.out.println(new MinimumWindowSubstring76().minWindow("ADOBECODEBANC", "ABC"));
+        System.out.println(new MinimumWindowSubstring76().minWindow("a", "aa"));
 
     }
 
@@ -135,6 +135,6 @@ public class MinimumWindowSubstring76 {
                 i++;
             }
         }
-        return s.substring(bestL, bestL + bestLen);
+        return bestLen == Integer.MAX_VALUE ? "" : s.substring(bestL, bestL + bestLen);
     }
 }
