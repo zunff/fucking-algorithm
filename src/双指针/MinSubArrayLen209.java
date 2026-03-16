@@ -31,12 +31,22 @@ public class MinSubArrayLen209 {
 
     public static void main(String[] args) {
         int[] nums = {2,3,1,2,4,3};
-        System.out.println(new MinSubArrayLen209().minSubArrayLen(7, nums));
+        System.out.println(new MinSubArrayLen209().minSubArrayLenSecond(7, nums));
     }
 
     public int minSubArrayLenSecond(int target, int[] nums) {
-
-        return 0;
+        int n = nums.length;
+        int res = Integer.MAX_VALUE;
+        int cur = 0;
+        for (int i = 0, j = 0; j < n; j++) {
+            cur += nums[j];
+            while (cur >= target) {
+                res = Math.min(res, j - i + 1);
+                cur -= nums[i];
+                i++;
+            }
+        }
+        return res == Integer.MAX_VALUE ? 0 : res;
     }
 
 
