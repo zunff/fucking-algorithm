@@ -35,12 +35,108 @@ import java.util.Map;
  */
 public class MinimumWindowSubstring76 {
     public static void main(String[] args) {
-        System.out.println(new MinimumWindowSubstring76().minWindow("a", "aa"));
+        System.out.println(new MinimumWindowSubstring76().minWindowSecond("ADOBECODEBANC", "ABC"));
 
     }
 
-    public String minWindowSecond(String s, String t) {
+    public String minWindowThird(String s, String t) {
         return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public String minWindowSecond(String s, String t) {
+        int formed = 0;
+        int require = 0;
+        int[] needs = new int[128];
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            if (needs[c] == 0) {
+                require++;
+            }
+            needs[c]++;
+        }
+        int[] windows = new int[128];
+
+        int bestL = 0;
+        int bestLen = Integer.MAX_VALUE;
+
+        for (int i = 0, j = 0; j < s.length(); j++) {
+            char c = s.charAt(j);
+            windows[c]++;
+            if (windows[c] == needs[c]) {
+                formed++;
+            }
+            while (formed == require) {
+                int len = j - i + 1;
+                if (bestLen > len) {
+                    bestL = i;
+                    bestLen = len;
+                }
+                char lc = s.charAt(i);
+                if (--windows[lc] < needs[lc]) {
+                    formed--;
+                }
+                i++;
+            }
+        }
+
+        return bestLen == Integer.MAX_VALUE ? "" : s.substring(bestL, bestL + bestLen);
     }
 
 
