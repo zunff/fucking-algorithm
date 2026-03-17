@@ -35,8 +35,159 @@ import java.util.Queue;
  */
 public class CourseSchedule207 {
     public static void main(String[] args) {
-        System.out.println(new CourseSchedule207().canFinish_Kahn(2, new int[][]{{1,0}}));
+        System.out.println(new CourseSchedule207().canFinish_Kahn_Second(2, new int[][]{{1,0}}));
     }
+
+    public boolean canFinish_Dfs_Second(int numCourses, int[][] prerequisites) {
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean canFinish_Kahn_Second(int numCourses, int[][] prerequisites) {
+        // 计算每个点的入度
+        int[] ins = new int[numCourses];
+        // 计算邻接表
+        List<List<Integer>> adj = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int[] p : prerequisites) {
+            adj.get(p[1]).add(p[0]);
+            ins[p[0]]++;
+        }
+        // 把入度为0的点放到队列里准备消费
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (ins[i] == 0) {
+                queue.offer(i);
+            }
+        }
+        int taken = 0;
+        while(!queue.isEmpty()) {
+            Integer i = queue.poll();
+            taken++;
+            for (int p : adj.get(i)) {
+                if (--ins[p] == 0) {
+                    queue.offer(p);
+                }
+            }
+        }
+        return taken == numCourses;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
