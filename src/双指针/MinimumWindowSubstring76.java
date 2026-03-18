@@ -35,12 +35,107 @@ import java.util.Map;
  */
 public class MinimumWindowSubstring76 {
     public static void main(String[] args) {
-        System.out.println(new MinimumWindowSubstring76().minWindowSecond("ADOBECODEBANC", "ABC"));
+        System.out.println(new MinimumWindowSubstring76().minWindowThird("ADOBECODEBANC", "ABC"));
 
     }
 
-    public String minWindowThird(String s, String t) {
+
+    public String minWindowFourth(String s, String t) {
         return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public String minWindowThird(String s, String t) {
+        int n = s.length();
+        int m = t.length();
+        Map<Character, Integer> needs = new HashMap<>();
+        for (int i = 0; i < m; i++) {
+            char c = t.charAt(i);
+            needs.put(c, needs.getOrDefault(c, 0) + 1);
+        }
+        int[] windows = new int[128];
+        int formed = 0;
+        int required = needs.size();
+
+        int bestL = 0;
+        int bestLen = Integer.MAX_VALUE;
+
+        for (int i = 0, j = 0; j < n; j++) {
+            char rc = s.charAt(j);
+            windows[rc]++;
+            if (needs.containsKey(rc) && windows[rc] == needs.get(rc)) {
+                formed++;
+            }
+
+            while (formed == required) {
+                int len = j - i + 1;
+                if (len < bestLen) {
+                    bestL = i;
+                    bestLen = len;
+                }
+                char lc = s.charAt(i);
+                if (needs.containsKey(lc) && --windows[lc] < needs.get(lc)) {
+                    formed--;
+                }
+                i++;
+            }
+        }
+
+        return bestLen == Integer.MAX_VALUE ? "" : s.substring(bestL, bestL + bestLen);
     }
 
 
