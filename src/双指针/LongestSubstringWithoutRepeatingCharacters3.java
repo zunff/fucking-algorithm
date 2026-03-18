@@ -30,8 +30,156 @@ import java.util.Map;
  */
 public class LongestSubstringWithoutRepeatingCharacters3 {
     public static void main(String[] args) {
-        System.out.println(new LongestSubstringWithoutRepeatingCharacters3().lengthOfLongestSubstring("bbbbb"));
+        System.out.println(new LongestSubstringWithoutRepeatingCharacters3().lengthOfLongestSubstringSecond("pwwkew"));
     }
+
+    public int lengthOfLongestSubstringThird(String s) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int lengthOfLongestSubstringSecond(String s) {
+        int n = s.length();
+        Map<Character, Integer> windows = new HashMap<>();
+        int bestLen = 0;
+        for (int i = 0, j = 0; j < n; j++) {
+            char rc = s.charAt(j);
+            windows.put(rc, windows.getOrDefault(rc, 0) + 1);
+            while (windows.get(rc) > 1) {
+                char lc = s.charAt(i);
+                windows.put(lc, windows.get(lc) - 1);
+                i++;
+            }
+            bestLen = Math.max(bestLen, j - i + 1);
+        }
+        return bestLen;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int lengthOfLongestSubstring(String s) {
         int ans = 0;
