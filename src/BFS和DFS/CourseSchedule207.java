@@ -35,10 +35,106 @@ import java.util.Queue;
  */
 public class CourseSchedule207 {
     public static void main(String[] args) {
-        System.out.println(new CourseSchedule207().canFinish_Kahn_Second(2, new int[][]{{1,0}}));
+        System.out.println(new CourseSchedule207().canFinish_Dfs_Second(2, new int[][]{{1,0}}));
     }
 
+    public boolean canFinish_Kahn_Third(int numCourses, int[][] prerequisites) {
+        return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public boolean canFinish_Dfs_Second(int numCourses, int[][] prerequisites) {
+        // 构建邻接表
+        List<List<Integer>> adj = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
+        }
+        for (int[] p : prerequisites) {
+            adj.get(p[1]).add(p[0]);
+        }
+        // dfs 三色判环 0 未判断，1 判断中，2 无环
+        int[] status = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (status[i] == 2) {
+                continue;
+            }
+            if (status[i] == 0 && hasCycleDfs_Second(adj, status, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean hasCycleDfs_Second(List<List<Integer>> adj, int[] status, int begin) {
+        status[begin] = 1;
+        for (int i : adj.get(begin)) {
+            if (status[i] == 2) {
+                continue;
+            }
+            if (status[i] == 1) {
+                return true;
+            }
+            if (status[i] == 0 && hasCycleDfs_Second(adj, status, i)) {
+                return true;
+            }
+        }
+        status[begin] = 2;
         return false;
     }
 

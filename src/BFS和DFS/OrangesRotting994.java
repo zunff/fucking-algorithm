@@ -43,6 +43,63 @@ public class OrangesRotting994 {
         System.out.println(new OrangesRotting994().orangesRottingSecond(grid));
     }
 
+    public int orangesRottingThird(int[][] grid) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public int orangesRottingSecond(int[][] grid) {
         int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         int n = grid.length;
