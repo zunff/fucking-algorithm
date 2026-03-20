@@ -1,6 +1,7 @@
 package 并查集;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -29,9 +30,8 @@ import java.util.Map;
 public class LongestConsecutiveSequence128 {
 
     public static void main(String[] args) {
-        System.out.println(new LongestConsecutiveSequence128().longestConsecutive_DSU_First(new int[]{100,4,200,1,3,2}));
+        System.out.println(new LongestConsecutiveSequence128().longestConsecutive_Hash(new int[]{0,3,7,2,5,8,4,6,0,1}));
     }
-
 
     public int longestConsecutive(int[] nums) {
         return 0;
@@ -98,9 +98,97 @@ public class LongestConsecutiveSequence128 {
 
 
 
+    public int longestConsecutive_Hash(int[] nums) {
+        HashSet<Integer> number = new HashSet<>();
+        for (int num : nums) {
+            number.add(num);
+        }
+
+        int ans = 0;
+
+        for (int num : number) {
+            // 不存在num - 1说明是起点，只在起点开始遍历，避免 O(n^2)
+            if (!number.contains(num - 1)) {
+                int cur = num;
+                int len = 1;
+                while (number.contains(cur + 1)) {
+                    cur = cur + 1;
+                    len++;
+                }
+                ans = Math.max(len, ans);
+            }
+        }
+
+        return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int longestConsecutive_DSU_First(int[] nums) {
         int n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
         // 数值与下边映射
         Map<Integer, Integer> map = new HashMap<>(n);
         for (int i = 0; i <n; i++) {
@@ -110,12 +198,12 @@ public class LongestConsecutiveSequence128 {
             }
         }
         DSU_First dsu = new DSU_First(n);
-        int ans = 0;
+        int ans = 1;
         for (int num : nums) {
             Integer nextIndex = map.get(num + 1);
             if (nextIndex != null) {
-                int nextNum = nums[nextIndex];
-                ans = Math.max(dsu.union(num, nextNum), ans);
+                int curIndex = map.get(num);
+                ans = Math.max(dsu.union(curIndex, nextIndex), ans);
             }
         }
         return ans;
