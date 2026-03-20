@@ -26,11 +26,82 @@ package 并查集;
  */
 public class FindCircleNum547 {
     public static void main(String[] args) {
-        System.out.println(new FindCircleNum547().findCircleNum(new int[][]{{1,1,0},{1,1,0},{0,0,1}}));
+//        System.out.println(new FindCircleNum547().findCircleNum(new int[][]{{1,1,0},{1,1,0},{0,0,1}}));
+        System.out.println(new FindCircleNum547().findCircleNumFirst(new int[][]{{1,1,1},{1,1,1},{1,1,1}}));
     }
+
     public int findCircleNum(int[][] isConnected) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public int findCircleNumFirst(int[][] isConnected) {
         int n = isConnected.length;
-        DSU dsu = new DSU(n);
+        DSU_First dsu = new DSU_First(n);
 
         // 由于无向图的对称性，只需要遍历右上半角，因为 isConnected[i][j] == isConnected[j][i]
         for (int i = 0 ; i < n; i++) {
@@ -44,14 +115,14 @@ public class FindCircleNum547 {
         return dsu.count;
     }
 
-    static class DSU {
+    static class DSU_First {
         private int[] parent; //parent[i] 是 元素 i 的上级
         public int count; // 连通块数量，初始为元素数量
 
         // 优化2，记下来每棵树的大小
         private int[] size;
 
-        public DSU(int n) {
+        public DSU_First(int n) {
             parent = new int[n];
             size = new int[n];
             count = n;
@@ -68,9 +139,9 @@ public class FindCircleNum547 {
 //            }
             // 优化1：路径压缩，直接把找到的根作为自己的parent
             if (x != parent[x]) {
-                parent[x] = find(x);
+                parent[x] = find(parent[x]);
             }
-            return x;
+            return parent[x];
         }
 
         public void union(int a, int b) {
@@ -83,13 +154,13 @@ public class FindCircleNum547 {
             }
             // 合并两个连通块，把A连通块挂到联通块B下
 //            parent[rootA] = rootB;
-            // 优化2：小树挂大树
+            // 优化2：小树挂到大树根节点下面，避免O(n)
             if (size[rootA] < size[rootB]) {
-                parent[rootB] = rootA;
-                size[rootA] += size[rootB];
-            } else {
                 parent[rootA] = rootB;
                 size[rootB] += size[rootA];
+            } else {
+                parent[rootB] = rootA;
+                size[rootA] += size[rootB];
             }
 
             // 减少连通块数量
