@@ -113,7 +113,7 @@ public class ShipWithinDays1011 {
 
         while (l <= r) {
             int mid = l + (r - l) / 2;
-            if (can(mid, weights, days)) {
+            if (can_First(mid, weights, days)) {
                 r = mid - 1;
                 ans = mid;
             } else {
