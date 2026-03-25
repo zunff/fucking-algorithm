@@ -123,3 +123,46 @@
          - 有向图判环：Kahn / DFS 三色。
       2. 需要删除边、回滚历史（除非用可回滚 DSU）
          - 普通 DSU 不支持高效“撤销 union”。
+
+## 二分答案
+> 适用场景：题目问法为「最大值最小化」或「最小值最大化」，答案有明确范围且连续，且能快速判断候选值是否可行。
+
+### 1. 核心特征（满足即考虑二分答案）
+1. **问法特征**：求「最大值最小」或「最小值最大」
+2. **范围特征**：答案有明确的上下界，且在范围内连续
+3. **判定特征**：给定任意候选值，能在O(n)或类似低复杂度下判断是否可行
+
+### 2. 通用框架
+```java
+// 二分答案 通用框架 (Java)
+public class Solution {
+    public int solve(int[] nums, int k) {
+        // 1. 初始化左右边界（根据题目自定义）
+        int left = 最小可能值;
+        int right = 最大可能值;
+
+        // 2. 二分查找主循环
+        while (left < right) {
+            // 防止整型溢出，推荐写法
+            int mid = left + (right - left) / 2;
+            // 核心：判断 mid 是否为可行解
+            if (isPossible(nums, k, mid)) {
+                // 可行，尝试找更小的解
+                right = mid;
+            } else {
+                // 不可行，需要增大值
+                left = mid + 1;
+            }
+        }
+        // 最终 left == right，即为答案
+        return left;
+    }
+
+    // 3. 核心判断函数（唯一需要根据题目改写的部分）
+    // 判定：当前候选值 mid 是否满足题目要求
+    private boolean isPossible(int[] nums, int k, int mid) {
+        // 在此处实现判定逻辑
+        return false;
+    }
+}
+```
