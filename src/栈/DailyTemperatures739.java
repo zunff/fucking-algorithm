@@ -1,4 +1,4 @@
-package 堆;
+package 栈;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class DailyTemperatures739 {
     }
 
     public int[] dailyTemperatures(int[] temperatures) {
-        // Next Greater Element 单调栈里存下标  这里是递减 top-> 1 -> 2
+        // Next Greater Element 单调栈里存下标  这里是递减  2 -> 1 -> top
         Deque<Integer> stack = new ArrayDeque<>();
         stack.push(0);
 
