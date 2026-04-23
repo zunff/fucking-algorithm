@@ -1,4 +1,4 @@
-package 栈;
+package 单调栈and单调队列;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
