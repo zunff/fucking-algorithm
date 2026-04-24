@@ -25,8 +25,77 @@ import java.util.Deque;
  */
 public class LargestRectangleInHistogram84 {
     public static void main(String[] args) {
-        System.out.println(new LargestRectangleInHistogram84().largestRectangleArea(new int[]{2,1,2}));
+        System.out.println(new LargestRectangleInHistogram84().largestRectangleAreaSecond(new int[]{2,1,2}));
     }
+
+
+
+    public int largestRectangleAreaSecond(int[] heights) {
+        int ans = 0;
+        // 递增单调栈
+        Deque<Integer> stack = new ArrayDeque<>();
+        int n = heights.length;
+
+        for (int i = 0; i < n; i++) {
+            // 维护单调递增的单调栈
+            while (!stack.isEmpty() && heights[i] <= heights[stack.peek()]) {
+                Integer index = stack.pop();
+                // 左区间为最近一个小于Index的柱子，栈里没有的话就是左边都大于index
+                int left = stack.peek() == null ? -1 : stack.peek();
+                // 右区间就是当前的i
+                int right = i;
+                int width = right - left - 1;
+                ans = Math.max(ans, heights[index] * width);
+            }
+            stack.push(i);
+        }
+
+        // 清空栈
+        int right = n;
+        while (!stack.isEmpty()) {
+            Integer index = stack.pop();
+            int left = stack.peek() == null ? -1 : stack.peek();
+            int width = right - left - 1;
+            ans = Math.max(ans, heights[index] * width);
+        }
+
+        return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int largestRectangleArea(int[] heights) {
         int n = heights.length;
