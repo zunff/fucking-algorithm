@@ -38,8 +38,79 @@ public class SlidingWindowMaximum239 {
 //        int[] nums = {1,3,-1,-3,5,3,6,7};
         int[] nums = {3,1,1,3};
         int k = 3;
-        System.out.println(Arrays.toString(new SlidingWindowMaximum239().maxSlidingWindow(nums, k)));
+        System.out.println(Arrays.toString(new SlidingWindowMaximum239().maxSlidingWindowSecond(nums, k)));
     }
+
+
+    public int[] maxSlidingWindowSecond(int[] nums, int k) {
+        int n = nums.length;
+        int[] ans = new int[n - k + 1];
+        // 队列里面存下标
+        Deque<Integer> queue = new ArrayDeque<>();
+
+        for (int i = 0; i < n; i++) {
+            // 弹出不属于当前滑动窗口内的
+            while (!queue.isEmpty() && queue.peekFirst() < i - k) {
+                queue.removeFirst();
+            }
+            // 维护递减队列
+            while (!queue.isEmpty() && nums[queue.peekLast()] <= nums[i]) {
+                queue.removeLast();
+            }
+            queue.addLast(i);
+            // 队头的就是当前区间的最大值
+            if (i + 1 >= k) {
+                ans[i - k + 1] = nums[queue.peekFirst()];
+            }
+        }
+
+        return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public int[] maxSlidingWindow(int[] nums, int k) {
