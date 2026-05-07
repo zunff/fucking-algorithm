@@ -28,8 +28,90 @@ import java.util.Deque;
 public class DailyTemperatures739 {
     public static void main(String[] args) {
         int[] ints = {73, 74, 75, 71, 69, 72, 76, 73};
-        System.out.println(Arrays.toString(new DailyTemperatures739().dailyTemperatures(ints)));
+        System.out.println(Arrays.toString(new DailyTemperatures739().dailyTemperaturesSecond(ints)));
     }
+
+    public int[] dailyTemperaturesSecond(int[] temperatures) {
+        int[] ans = new int[temperatures.length];
+
+        // 单调递减栈 存下标
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for (int i = 0; i < temperatures.length; i++) {
+            while (!stack.isEmpty() && temperatures[i] >= temperatures[stack.peek()]) {
+                Integer index = stack.pop();
+                ans[index] = i - index;
+            }
+            stack.push(i);
+        }
+        return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int[] dailyTemperatures(int[] temperatures) {
         // Next Greater Element 单调栈里存下标  这里是递减  2 -> 1 -> top
