@@ -34,8 +34,100 @@ public class DistinctSubsequences115 {
     public static void main(String[] args) {
         String s = "rabbbit";
         String t = "rabbit";
-        System.out.println(new DistinctSubsequences115().numDistinctThird(s, t));
+        System.out.println(new DistinctSubsequences115().numDistinctFourth(s, t));
     }
+
+
+    /**
+     * dp[i][j] 表示在 s 的前 i个字符的子序列中 t 的前 j 个字符 出现多少次
+     * 初始化：dp[0][0] = 1
+     *        dp[i][0] = 1
+     *        dp[0][i] = 0
+     * {
+     *     s[i] == t[j]  dp[i][j] = dp[i - 1][j - 1] + dp[i -1][j]  // 选或不选
+     *     s[i] != t[j]  dp[i][j] = dp[i - 1][j]
+     * }
+     */
+    public int numDistinctFourth(String s, String t) {
+        int n = s.length();
+        int m = t.length();
+        int[][] dp = new int[n + 1][m + 1];
+        dp[0][0] = 1;
+        for (int i = 1; i <= n; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+
+        return dp[n][m];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * dp[i][j] 表示 s[0,i]的子序列中 t[0,j]出现的个数
