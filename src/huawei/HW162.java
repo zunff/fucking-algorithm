@@ -30,6 +30,12 @@ public class HW162 {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int m = scanner.nextInt();
+
+        if (n <= 0 || n > 100 || m <= 0 || m > 100) {
+            System.out.println("-1");
+            return;
+        }
+
         int[][] grid = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
