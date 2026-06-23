@@ -1,6 +1,7 @@
 package 双指针;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -30,11 +31,22 @@ import java.util.Map;
  */
 public class LongestSubstringWithoutRepeatingCharacters3 {
     public static void main(String[] args) {
-        System.out.println(new LongestSubstringWithoutRepeatingCharacters3().lengthOfLongestSubstringSecond("pwwkew"));
+        System.out.println(new LongestSubstringWithoutRepeatingCharacters3().lengthOfLongestSubstringThird("abcabcbb"));
     }
 
     public int lengthOfLongestSubstringThird(String s) {
-        return 0;
+        int ans = 0;
+        HashSet<Character> cur = new HashSet<>();
+        for (int i = 0, j = 0; i <= j && j < s.length(); j++) {
+            char c = s.charAt(j);
+            while (cur.contains(c)) {
+                cur.remove(s.charAt(i));
+                i++;
+            }
+            cur.add(c);
+            ans = Math.max(ans, j - i + 1);
+        }
+        return ans;
     }
 
 
