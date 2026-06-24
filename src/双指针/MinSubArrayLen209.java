@@ -31,8 +31,85 @@ public class MinSubArrayLen209 {
 
     public static void main(String[] args) {
         int[] nums = {2,3,1,2,4,3};
-        System.out.println(new MinSubArrayLen209().minSubArrayLenSecond(7, nums));
+        System.out.println(new MinSubArrayLen209().minSubArrayLenThird(7, nums));
     }
+
+    public int minSubArrayLenThird(int target, int[] nums) {
+        int n = nums.length;
+        int ans = Integer.MAX_VALUE;
+        int sum = 0;
+        for (int i = 0, j = 0; j < n; j++) {
+            sum += nums[j];
+            while (sum >= target) {
+                ans = Math.min(ans, j - i + 1);
+                sum -= nums[i];
+                i++;
+            }
+        }
+        return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int minSubArrayLenSecond(int target, int[] nums) {
         int n = nums.length;
