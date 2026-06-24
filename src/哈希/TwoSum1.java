@@ -36,8 +36,81 @@ public class TwoSum1 {
     public static void main(String[] args) {
         int[] nums = {3,2,4};
         int target = 6;
-        System.out.println(Arrays.toString(new TwoSum1().twoSum(nums, target)));
+        System.out.println(Arrays.toString(new TwoSum1().twoSumSecond(nums, target)));
     }
+
+    public int[] twoSumSecond(int[] nums, int target) {
+        Map<Integer, Integer> hash = new HashMap<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            hash.put(nums[i], i);
+        }
+        for (int i = 0; i < n; i++) {
+            int cur = nums[i];
+            Integer j = hash.get(target - cur);
+            if (j != null && j != i) {
+                return new int[]{i, j};
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> hash = new HashMap<>();
