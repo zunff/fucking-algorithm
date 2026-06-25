@@ -41,6 +41,19 @@ public class HasCycle141 {
     // 遍历算入度>2的节点，O(n)时间、O(n)空间
     // O(1)空间得快慢指针，如果形成环，快慢指针会相遇
     public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (fast != null) {
+            if (fast == slow) {
+                return true;
+            }
+            slow = slow.next;
+            fast = fast.next == null ? null : fast.next.next;
+        }
         return false;
     }
 
