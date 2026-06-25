@@ -20,7 +20,7 @@ package 链表;
  * 链表的结点数范围是 [1, 100]
  * 1 <= Node.val <= 100
  */
-public class MiddleNode61 {
+public class MiddleNode876 {
     public static void main(String[] args) {
         
     }
