@@ -49,8 +49,98 @@ public class NumberOfIslands200 {
 //                {'0', '1', '0'},
 //                {'1', '1', '1'},
 //        };
-        System.out.println(new NumberOfIslands200().numIslandsBfs(grid));
+        System.out.println(new NumberOfIslands200().numIslandsBfs_Second(grid));
     }
+
+    public int numIslandsBfs_Second(char[][] grid) {
+        int ans = 0;
+        Queue<int[]> queue = new ArrayDeque<>();
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    ans++;
+                    queue.offer(new int[]{i, j});
+                    while (!queue.isEmpty()) {
+                        int[] poll = queue.poll();
+                        int x = poll[0];
+                        int y = poll[1];
+                        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == '0') {
+                            continue;
+                        }
+                        grid[x][y] = '0';
+
+                        queue.offer(new int[]{x + 1, y});
+                        queue.offer(new int[]{x - 1, y});
+                        queue.offer(new int[]{x, y + 1});
+                        queue.offer(new int[]{x, y - 1});
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+
+    public int numIslandsDfs_Second(char[][] grid) {
+        int ans = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    ans++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+        return ans;
+    }
+
+    public void dfs(char[][] grid, int i, int j) {
+        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == '0') {
+            return;
+        }
+        grid[i][j] = '0';
+        dfs(grid, i + 1, j);
+        dfs(grid, i - 1, j);
+        dfs(grid, i, j + 1);
+        dfs(grid, i, j - 1);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int numIslandsBfs(char[][] grid) {
         int result = 0;
