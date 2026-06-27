@@ -1,7 +1,5 @@
 package 动态规划;
 
-import java.util.Arrays;
-
 /**
  * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
  *
@@ -30,16 +28,52 @@ import java.util.Arrays;
  *
  * 1 <= n <= 45
  */
-public class ClimbStairs {
+public class ClimbStairs70 {
     public static void main(String[] args) {
-        int n = 10;
+//        int n = 10;
+//        int[] memo = new int[n];
+//        Arrays.fill(memo, -1);
+//        System.out.println(traverse(n, 0, memo));
+//        System.out.println(iterator(n));
 
-        int[] memo = new int[n];
-        Arrays.fill(memo, -1);
-        System.out.println(traverse(n, 0, memo));
-
-        System.out.println(iterator(n));
+        System.out.println(new ClimbStairs70().climbStairs(10));
     }
+
+
+    public int climbStairs(int n) {
+        int a = 1;
+        int b = 1;
+        for (int i = 2; i <= n; i++) {
+            int oldB = b;
+            b = a + b;
+            a = oldB;
+        }
+        return b;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public static int iterator_opt_memo(int n) {
