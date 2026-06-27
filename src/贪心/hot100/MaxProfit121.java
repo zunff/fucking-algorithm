@@ -25,8 +25,98 @@ package 贪心.hot100;
 public class MaxProfit121 {
     public static void main(String[] args) {
         int[] prices = {7,1,5,3,6,4};
-        System.out.println(new MaxProfit121().maxProfit(prices));
+        System.out.println(new MaxProfit121().maxProfit_Second(prices));
     }
+
+    /**
+     * hold[i] 表示在第 i + 1 天是持有股票状态的最大利润
+     * sold[i] 表示在第 i + 1 天是卖出股票状态时最大利润
+     * ans = sold[n - 1]
+     * hold[0] = -prices[0]
+     * {
+     *     hold[i] = max(hold[i - 1], -price[i])
+     *     sold[i] = max(sold[i - 1], hold[i] + price[i])
+     * }
+     */
+    public int maxProfit_Second(int[] prices) {
+        int n = prices.length;
+        int[] hold = new int[n];
+        int[] sold = new int[n];
+        hold[0] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            hold[i] = Math.max(hold[i - 1], -prices[i]);
+            sold[i] = Math.max(sold[i - 1], hold[i] + prices[i]);
+        }
+        return sold[n - 1];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int maxProfit(int[] prices) {
         int n = prices.length;
