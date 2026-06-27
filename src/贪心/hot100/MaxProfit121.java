@@ -35,7 +35,7 @@ public class MaxProfit121 {
      * hold[0] = -prices[0]
      * {
      *     hold[i] = max(hold[i - 1], -price[i])
-     *     sold[i] = max(sold[i - 1], hold[i] + price[i])
+     *     sold[i] = max(sold[i - 1], hold[i - 1] + price[i])
      * }
      */
     public int maxProfit_Second(int[] prices) {
@@ -45,7 +45,7 @@ public class MaxProfit121 {
         hold[0] = -prices[0];
         for (int i = 1; i < n; i++) {
             hold[i] = Math.max(hold[i - 1], -prices[i]);
-            sold[i] = Math.max(sold[i - 1], hold[i] + prices[i]);
+            sold[i] = Math.max(sold[i - 1], hold[i - 1] + prices[i]);
         }
         return sold[n - 1];
     }
