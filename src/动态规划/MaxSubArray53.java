@@ -30,14 +30,92 @@ package 动态规划;
  *
  * 进阶：如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的 分治法 求解。
  */
-public class MaxSubArray {
+public class MaxSubArray53 {
 
     public static void main(String[] args) {
 //        int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
 //        int[] nums = {-1,-2};
         int[] nums = {5,4,-1,7,8};
-        System.out.println(new MaxSubArray().maxSubArray(nums));
+        System.out.println(new MaxSubArray53().maxSubArray_Second(nums));
     }
+
+    /**
+     * dp[i] 表示以nums[i]结尾的最大子数组和
+     * ans 取最大的dp[i]
+     *
+     * {
+     *     dp[i] = max(dp[i - 1] + nums[i - 1], nums[i - 1])
+     * }
+     */
+    public int maxSubArray_Second(int[] nums) {
+        int ans = nums[0];
+        int n = nums.length;
+        int dp = 0;
+        for (int i = 1; i <= n; i++) {
+            int num = nums[i - 1];
+            int sum = dp + num;
+            dp = Math.max(sum, num);
+            ans = Math.max(ans, dp);
+        }
+        return ans;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public int maxSubArray(int[] nums) {
         int m = nums.length;
